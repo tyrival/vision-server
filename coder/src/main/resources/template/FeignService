@@ -1,0 +1,11 @@
+package com.tyrival.feign.${MODULE}.${PACKAGE}.service;
+
+import com.tyrival.entity.${MODULE}.${PACKAGE}.${CLASS};
+import com.tyrival.api.feign.service.FeignService;
+import com.tyrival.feign.${MODULE}.${PACKAGE}.service.impl.${CLASS}ServiceHystrix;
+import org.springframework.cloud.openfeign.FeignClient;
+
+@FeignClient(value = "server-${MODULE}", path="/${URL}", fallback = ${CLASS}ServiceHystrix.class)
+public interface ${CLASS}Service extends FeignService<${CLASS}> {
+
+}

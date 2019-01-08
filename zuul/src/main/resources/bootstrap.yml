@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: server-zuul
+  cloud:
+    config:
+      label: master
+      profile: dev
+      uri: http://localhost:9000/
+
+server:
+  port: 9003

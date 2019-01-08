@@ -1,0 +1,7 @@
+package com.tyrival.${MODULE}.${PACKAGE}.service;
+
+import com.tyrival.entity.${MODULE}.${PACKAGE}.${CLASS};
+import com.tyrival.api.base.service.BaseService;
+
+public interface ${CLASS}Service extends BaseService<${CLASS}> {
+}

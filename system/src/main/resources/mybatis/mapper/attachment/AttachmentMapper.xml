@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tyrival.system.attachment.dao.AttachmentDAO">
+
+    <resultMap id="attachmentResultMap" type="com.tyrival.entity.system.attachment.Attachment">
+        <result property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="fullName" column="full_name"/>
+        <result property="extensionName" column="extension_name"/>
+        <result property="size" column="size"/>
+        <result property="absolutePath" column="absolute_path"/>
+        <result property="relativePath" column="relative_path"/>
+        <result property="createTime" column="create_time"/>
+        <result property="createUserId" column="create_user_id"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="updateUserId" column="update_user_id"/>
+        <result property="delFlag" column="del_flag" typeHandler="com.tyrival.typehandler.EnumTypeHandler"/>
+    </resultMap>
+
+    <sql id="columns">
+        id, name, full_name, extension_name, size, absolute_path, relative_path, create_time, create_user_id, update_time, update_user_id, del_flag
+    </sql>
+
+    <insert id="insert">
+        INSERT INTO sys_attachment (<include refid="columns"/>)
+        VALUES (#{id}, #{name}, #{fullName}, #{extensionName}, #{size}, #{absolutePath}, #{relativePath}, #{createTime}, #{createUserId}, #{updateTime}, #{updateUserId}, #{delFlag.code})
+    </insert>
+
+    <update id="update">
+        UPDATE sys_attachment
+        <set>
+            <if test="name != null">name = #{name},</if>
+            <if test="fullName != null">full_name = #{fullName},</if>
+            <if test="extensionName != null">extension_name = #{extensionName},</if>
+            <if test="size != null">size = #{size},</if>
+            <if test="absolutePath != null">absolute_path = #{absolutePath},</if>
+            <if test="relativePath != null">relative_path = #{relativePath},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="updateUserId != null">update_user_id = #{updateUserId},</if>
+            <if test="delFlag != null">del_flag = #{delFlag.code},</if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <select id="get" resultMap="attachmentResultMap">
+        SELECT
+        <include refid="columns"/>
+        FROM sys_attachment
+        WHERE id = #{id} AND del_flag = 0
+    </select>
+
+    <delete id="delete">
+        DELETE
+        FROM sys_attachment
+        WHERE id = #{id} AND del_flag = 0
+    </delete>
+
+    <select id="list" parameterType="com.tyrival.entity.base.QueryParam" resultMap="attachmentResultMap">
+        SELECT
+        <include refid="columns"/>
+        FROM sys_attachment
+        <where>
+            del_flag = 0
+            <if test="queryParam.filters != null">
+                <foreach item="filter" collection="queryParam.filters">
+                    ${filter.relation} ${filter.property} ${filter.symbol} #{filter.value}
+                </foreach>
+            </if>
+        </where>
+        <if test="queryParam.orders != null">
+            ORDER BY
+            <foreach item="order" collection="queryParam.orders" separator=",">
+                ${order.property} ${order.type}
+            </foreach>
+        </if>
+    </select>
+
+</mapper>

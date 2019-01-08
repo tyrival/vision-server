@@ -1,0 +1,1 @@
+comment on column ${TABLE}.${FIELD_COLUMN} is '${FIELD_COMMENT}';

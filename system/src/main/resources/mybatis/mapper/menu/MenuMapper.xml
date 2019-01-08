@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tyrival.system.menu.dao.MenuDAO">
+
+    <resultMap id="menuResultMap" type="com.tyrival.entity.system.menu.Menu">
+        <result property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="parentId" column="parent_id"/>
+        <result property="icon" column="icon"/>
+        <result property="url" column="url"/>
+        <result property="hash" column="hash"/>
+        <result property="sort" column="sort"/>
+        <result property="createTime" column="create_time"/>
+        <result property="createUserId" column="create_user_id"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="updateUserId" column="update_user_id"/>
+        <result property="delFlag" column="del_flag" typeHandler="com.tyrival.typehandler.EnumTypeHandler"/>
+    </resultMap>
+
+    <sql id="columns">
+        id, name, parent_id, icon, url, hash, sort,  create_time, create_user_id, update_time, update_user_id, del_flag
+    </sql>
+
+    <insert id="insert">
+        INSERT INTO sys_menu (<include refid="columns"/>)
+        VALUES (#{id}, #{name}, #{parentId}, #{icon}, #{url}, #{hash}, #{sort},  #{createTime}, #{createUserId}, #{updateTime}, #{updateUserId}, #{delFlag.code})
+    </insert>
+
+    <update id="update">
+        UPDATE sys_menu
+        <set>
+            <if test="name != null">name = #{name},</if>
+            <if test="parentId != null">parent_id = #{parentId},</if>
+            <if test="icon != null">icon = #{icon},</if>
+            <if test="url != null">url = #{url},</if>
+            <if test="hash != null">hash = #{hash},</if>
+            <if test="sort != null">sort = #{sort},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="updateUserId != null">update_user_id = #{updateUserId},</if>
+            <if test="delFlag != null">del_flag = #{delFlag.code},</if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <select id="get" resultMap="menuResultMap">
+        SELECT
+        <include refid="columns"/>
+        FROM sys_menu
+        WHERE id = #{id} AND del_flag = 0
+    </select>
+
+    <select id="list" parameterType="com.tyrival.entity.base.QueryParam" resultMap="menuResultMap">
+        SELECT
+        <include refid="columns"/>
+        FROM sys_menu
+        <where>
+            del_flag = 0
+            <if test="queryParam != null and queryParam.filters != null">
+                <foreach item="filter" collection="queryParam.filters">
+                    ${filter.relation} ${filter.property} ${filter.symbol} #{filter.value}
+                </foreach>
+            </if>
+        </where>
+        <if test="queryParam.orders != null">
+            ORDER BY
+            <foreach item="order" collection="queryParam.orders" separator=",">
+                ${order.property} ${order.type}
+            </foreach>
+        </if>
+    </select>
+
+
+</mapper>

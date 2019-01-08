@@ -1,0 +1,10 @@
+package com.tyrival.feign.${MODULE}.${PACKAGE}.service.impl;
+
+import com.tyrival.entity.${MODULE}.${PACKAGE}.${CLASS};
+import com.tyrival.api.feign.service.impl.FeignServiceHystrix;
+import com.tyrival.feign.${MODULE}.${PACKAGE}.service.${CLASS}Service;
+import org.springframework.stereotype.Component;
+
+@Component
+public class ${CLASS}ServiceHystrix extends FeignServiceHystrix<${CLASS}> implements ${CLASS}Service {
+}

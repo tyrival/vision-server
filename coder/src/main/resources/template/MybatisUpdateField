@@ -1,0 +1,1 @@
+            <if test="${FIELD_NAME} != null">${FIELD_COLUMN} = #{${FIELD_NAME}},</if>

@@ -1,0 +1,18 @@
+package com.tyrival.entity.${MODULE}.${PACKAGE};
+
+import com.tyrival.entity.base.Base;
+import com.google.gson.Gson;
+
+
+public class ${CLASS} extends Base {
+
+${DECLARATION}
+
+${GETTER_SETTER}
+    
+    @Override
+    public String toString() {
+        Gson gson = new Gson();
+        return gson.toJson(this);
+    }
+}

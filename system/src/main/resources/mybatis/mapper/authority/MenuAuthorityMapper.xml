@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tyrival.system.authority.dao.MenuAuthorityDAO">
+
+    <resultMap id="menuAuthorityResultMap" type="com.tyrival.entity.system.authority.MenuAuthority">
+        <result property="id" column="id"/>
+        <result property="ownerId" column="owner_id"/>
+        <result property="menuId" column="menu_id"/>
+        <result property="createTime" column="create_time"/>
+        <result property="createUserId" column="create_user_id"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="updateUserId" column="update_user_id"/>
+        <result property="delFlag" column="del_flag" typeHandler="com.tyrival.typehandler.EnumTypeHandler"/>
+    </resultMap>
+
+    <resultMap id="menuAuthorityVoResultMap" type="com.tyrival.entity.system.authority.MenuAuthorityVo">
+        <result property="id" column="id"/>
+        <result property="ownerId" column="owner_id"/>
+        <result property="ownerName" column="owner_name"/>
+        <result property="menuId" column="menu_id"/>
+        <result property="name" column="name"/>
+        <result property="parentId" column="parent_id"/>
+        <result property="icon" column="icon"/>
+        <result property="url" column="url"/>
+        <result property="hash" column="hash"/>
+        <result property="sort" column="sort"/>
+        <result property="createTime" column="create_time"/>
+        <result property="createUserId" column="create_user_id"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="updateUserId" column="update_user_id"/>
+        <result property="delFlag" column="del_flag" typeHandler="com.tyrival.typehandler.EnumTypeHandler"/>
+    </resultMap>
+
+    <sql id="columns">
+        id, owner_id, menu_id,  create_time, create_user_id, update_time, update_user_id, del_flag
+    </sql>
+
+    <insert id="insert">
+        INSERT INTO sys_menu_authority (<include refid="columns"/>)
+        VALUES (#{id}, #{ownerId}, #{menuId},  #{createTime}, #{createUserId}, #{updateTime}, #{updateUserId}, #{delFlag.code})
+    </insert>
+
+    <update id="update">
+        UPDATE sys_menu_authority
+        <set>
+            <if test="ownerId != null">owner_id = #{ownerId},</if>
+            <if test="menuId != null">menu_id = #{menuId},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="updateUserId != null">update_user_id = #{updateUserId},</if>
+            <if test="delFlag != null">del_flag = #{delFlag.code},</if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <select id="get" resultMap="menuAuthorityResultMap">
+        SELECT
+        <include refid="columns"/>
+        FROM sys_menu_authority
+        WHERE id = #{id} AND del_flag = 0
+    </select>
+
+    <select id="list" parameterType="com.tyrival.entity.base.QueryParam" resultMap="menuAuthorityResultMap">
+        SELECT
+        <include refid="columns"/>
+        FROM sys_menu_authority
+        <where>
+            del_flag = 0
+            <if test="queryParam != null and queryParam.filters != null">
+                <foreach item="filter" collection="queryParam.filters">
+                    ${filter.relation} ${filter.property} ${filter.symbol} #{filter.value}
+                </foreach>
+            </if>
+        </where>
+        <if test="queryParam.orders != null">
+            ORDER BY
+            <foreach item="order" collection="queryParam.orders" separator=",">
+                ${order.property} ${order.type}
+            </foreach>
+        </if>
+    </select>
+
+
+    <select id="listByUser" parameterType="com.tyrival.entity.system.user.User" resultMap="menuAuthorityVoResultMap">
+        SELECT a.id, a.owner_id, u.name AS owner_name, a.menu_id, m.name, m.parent_id, m.icon, m.url, m.hash, m.sort, a.create_time, a.create_user_id, a.update_time, a.update_user_id, a.del_flag
+        FROM sys_users u, sys_menu_authority a, sys_menu m, sys_role r, sys_user_role ur
+        WHERE u.del_flag=0 AND a.del_flag=0 AND m.del_flag=0 AND r.del_flag=0
+        AND u.id=ur.user_id AND ur.role_id=r.id AND r.id=a.owner_id AND a.menu_id=m.id
+    </select>
+
+
+</mapper>

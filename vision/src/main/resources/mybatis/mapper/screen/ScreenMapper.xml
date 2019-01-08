@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tyrival.vision.screen.dao.ScreenDAO">
+
+    <resultMap id="screenResultMap" type="com.tyrival.entity.vision.screen.Screen">
+        <result property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="cover" column="cover"/>
+        <result property="base" column="base"/>
+        <result property="sequence" column="sequence"/>
+        <result property="components" column="components"/>
+        <result property="state" column="state" typeHandler="com.tyrival.typehandler.EnumTypeHandler"/>
+        <result property="createTime" column="create_time"/>
+        <result property="createUserId" column="create_user_id"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="updateUserId" column="update_user_id"/>
+        <result property="delFlag" column="del_flag" typeHandler="com.tyrival.typehandler.EnumTypeHandler"/>
+    </resultMap>
+
+    <sql id="columns">
+        id, name, cover, base, sequence, components, state, create_time, create_user_id, update_time, update_user_id, del_flag
+    </sql>
+
+    <insert id="insert">
+        INSERT INTO vi_screen (<include refid="columns"/>)
+        VALUES (#{id}, #{name}, #{cover}, #{base}, #{sequence}, #{components},  #{state.code},  #{createTime}, #{createUserId}, #{updateTime}, #{updateUserId}, #{delFlag.code})
+    </insert>
+
+    <update id="update">
+        UPDATE vi_screen
+        <set>
+            <if test="name != null">name = #{name},</if>
+            <if test="cover != null">cover = #{cover},</if>
+            <if test="base != null">base = #{base},</if>
+            <if test="sequence != null">sequence = #{sequence},</if>
+            <if test="components != null">components = #{components},</if>
+            <if test="state != null">state = #{state.code},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="updateUserId != null">update_user_id = #{updateUserId},</if>
+            <if test="delFlag != null">del_flag = #{delFlag.code},</if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <select id="get" resultMap="screenResultMap">
+        SELECT
+        <include refid="columns"/>
+        FROM vi_screen
+        WHERE id = #{id} AND del_flag = 0
+    </select>
+
+    <select id="list" parameterType="com.tyrival.entity.base.QueryParam" resultMap="screenResultMap">
+        SELECT
+        <include refid="columns"/>
+        FROM vi_screen
+        <where>
+            del_flag = 0
+            <if test="queryParam != null and queryParam.filters != null">
+                <foreach item="filter" collection="queryParam.filters">
+                    ${filter.relation} ${filter.property} ${filter.symbol} #{filter.value}
+                </foreach>
+            </if>
+        </where>
+        <if test="queryParam.orders != null">
+            ORDER BY
+            <foreach item="order" collection="queryParam.orders" separator=",">
+                ${order.property} ${order.type}
+            </foreach>
+        </if>
+    </select>
+
+</mapper>

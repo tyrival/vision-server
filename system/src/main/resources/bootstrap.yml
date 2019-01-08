@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: server-system
+  cloud:
+    config:
+      label: master
+      profile: dev
+      uri: http://localhost:9000/
+      discovery:
+        enabled: true
+        service-id: config-server
+
+server:
+  port: 9101

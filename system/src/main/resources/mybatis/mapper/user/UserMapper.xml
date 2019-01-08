@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tyrival.system.user.dao.UserDAO">
+
+    <resultMap id="userResultMap" type="com.tyrival.entity.system.user.User">
+        <result property="id" column="id"/>
+        <result property="account" column="account"/>
+        <result property="password" column="password"/>
+        <result property="name" column="name"/>
+        <result property="userStateEnum" column="user_state" typeHandler="com.tyrival.typehandler.EnumTypeHandler"/>
+        <result property="tel" column="tel"/>
+        <result property="email" column="email"/>
+        <result property="createTime" column="create_time"/>
+        <result property="createUserId" column="create_user_id"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="updateUserId" column="update_user_id"/>
+        <result property="delFlag" column="del_flag" typeHandler="com.tyrival.typehandler.EnumTypeHandler"/>
+    </resultMap>
+
+    <sql id="columns">
+        id, account, password, name, user_state, tel, email, create_time, create_user_id, update_time, update_user_id, del_flag
+    </sql>
+
+    <insert id="insert">
+        INSERT INTO sys_users (<include refid="columns"/>)
+        VALUES (#{id}, #{account}, #{password}, #{name}, #{userStateEnum.code}, #{tel}, #{email}, #{createTime},
+        #{createUserId}, #{updateTime}, #{updateUserId}, #{delFlag.code})
+    </insert>
+
+    <update id="update">
+        UPDATE sys_users
+        <set>
+            <if test="account != null">account = #{account},</if>
+            <if test="password != null">password = #{password},</if>
+            <if test="name != null">name = #{name},</if>
+            <if test="userStateEnum != null">user_state = #{userStateEnum.code},</if>
+            <if test="tel != null">tel = #{tel},</if>
+            <if test="email != null">email = #{email},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="updateUserId != null">update_user_id = #{updateUserId},</if>
+            <if test="delFlag != null">del_flag = #{delFlag.code},</if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <select id="get" resultMap="userResultMap">
+        SELECT
+        <include refid="columns"/>
+        FROM sys_users
+        WHERE id = #{id} AND del_flag = 0
+    </select>
+
+    <select id="getByAccount" resultMap="userResultMap">
+        SELECT
+        <include refid="columns"/>
+        FROM sys_users
+        WHERE account = #{account} AND del_flag = 0
+    </select>
+
+    <select id="list" parameterType="com.tyrival.entity.base.QueryParam" resultMap="userResultMap">
+        SELECT
+        <include refid="columns"/>
+        FROM sys_users
+        <where>
+            del_flag = 0
+            <if test="queryParam != null and queryParam.filters != null">
+                <foreach item="filter" collection="queryParam.filters">
+                    ${filter.relation} ${filter.property} ${filter.symbol} #{filter.value}
+                </foreach>
+            </if>
+        </where>
+        <if test="queryParam.orders != null">
+            ORDER BY
+            <foreach item="order" collection="queryParam.orders" separator=",">
+                ${order.property} ${order.type}
+            </foreach>
+        </if>
+    </select>
+
+
+</mapper>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tyrival.${MODULE}.${PACKAGE}.dao.${CLASS}DAO">
+
+    <resultMap id="${INSTANCE}ResultMap" type="com.tyrival.entity.${MODULE}.${PACKAGE}.${CLASS}">
+        <result property="id" column="id"/>
+${MYBATIS_RESULT_FIELD}<result property="createTime" column="create_time"/>
+        <result property="createUserId" column="create_user_id"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="updateUserId" column="update_user_id"/>
+        <result property="delFlag" column="del_flag" typeHandler="com.tyrival.typehandler.EnumTypeHandler"/>
+    </resultMap>
+
+    <sql id="columns">
+        id, ${MYBATIS_COLUMN}create_time, create_user_id, update_time, update_user_id, del_flag
+    </sql>
+
+    <insert id="insert">
+        INSERT INTO ${TABLE} (<include refid="columns"/>)
+        VALUES (#{id}, ${MYBATIS_VALUE} #{createTime}, #{createUserId}, #{updateTime}, #{updateUserId}, #{delFlag.code})
+    </insert>
+
+    <update id="update">
+        UPDATE ${TABLE}
+        <set>
+${MYBATIS_UPDATE_FIELD}<if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="updateUserId != null">update_user_id = #{updateUserId},</if>
+            <if test="delFlag != null">del_flag = #{delFlag.code},</if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <select id="get" resultMap="${INSTANCE}ResultMap">
+        SELECT
+        <include refid="columns"/>
+        FROM ${TABLE}
+        WHERE id = #{id} AND del_flag = 0
+    </select>
+
+    <select id="list" parameterType="com.tyrival.entity.base.QueryParam" resultMap="${INSTANCE}ResultMap">
+        SELECT
+        <include refid="columns"/>
+        FROM ${TABLE}
+        <where>
+            del_flag = 0
+            <if test="queryParam != null AND queryParam.filters != null">
+                <foreach item="filter" collection="queryParam.filters">
+                    ${filter.relation} ${filter.property} ${filter.symbol} #{filter.value}
+                </foreach>
+            </if>
+        </where>
+        <if test="queryParam.orders != null">
+            ORDER BY
+            <foreach item="order" collection="queryParam.orders" separator=",">
+                ${order.property} ${order.type}
+            </foreach>
+        </if>
+    </select>
+
+
+</mapper>

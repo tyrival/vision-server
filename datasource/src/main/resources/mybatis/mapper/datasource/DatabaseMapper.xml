@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tyrival.datasource.dao.DataSourceDAO">
+
+    <resultMap id="dataSourceResultMap" type="com.tyrival.entity.datasource.DataSource">
+        <result property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="type" column="type" typeHandler="com.tyrival.typehandler.EnumTypeHandler"/>
+        <result property="createTime" column="create_time"/>
+        <result property="createUserId" column="create_user_id"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="updateUserId" column="update_user_id"/>
+        <result property="delFlag" column="del_flag" typeHandler="com.tyrival.typehandler.EnumTypeHandler"/>
+    </resultMap>
+    <resultMap id="apiResultMap" type="com.tyrival.entity.datasource.api.ApiSource">
+        <result property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="url" column="url"/>
+        <result property="protocol" column="protocol"/>
+        <result property="type" column="type" typeHandler="com.tyrival.typehandler.EnumTypeHandler"/>
+        <result property="createTime" column="create_time"/>
+        <result property="createUserId" column="create_user_id"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="updateUserId" column="update_user_id"/>
+        <result property="delFlag" column="del_flag" typeHandler="com.tyrival.typehandler.EnumTypeHandler"/>
+    </resultMap>
+    <resultMap id="databaseResultMap" type="com.tyrival.entity.datasource.db.Database">
+        <result property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="host" column="host"/>
+        <result property="port" column="port"/>
+        <result property="schema" column="schema"/>
+        <result property="userName" column="user_name"/>
+        <result property="password" column="password"/>
+        <result property="type" column="type" typeHandler="com.tyrival.typehandler.EnumTypeHandler"/>
+        <result property="createTime" column="create_time"/>
+        <result property="createUserId" column="create_user_id"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="updateUserId" column="update_user_id"/>
+        <result property="delFlag" column="del_flag" typeHandler="com.tyrival.typehandler.EnumTypeHandler"/>
+    </resultMap>
+    <resultMap id="fileResultMap" type="com.tyrival.entity.datasource.file.FileSource">
+        <result property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="attachmentId" column="attachment_id"/>
+        <result property="type" column="type" typeHandler="com.tyrival.typehandler.EnumTypeHandler"/>
+        <result property="createTime" column="create_time"/>
+        <result property="createUserId" column="create_user_id"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="updateUserId" column="update_user_id"/>
+        <result property="delFlag" column="del_flag" typeHandler="com.tyrival.typehandler.EnumTypeHandler"/>
+    </resultMap>
+
+    <sql id="columns">
+        id, name, type, create_time, create_user_id, update_time, update_user_id, del_flag
+    </sql>
+    <sql id="columnsApi">
+        id, name, url, protocol, type, create_time, create_user_id, update_time, update_user_id, del_flag
+    </sql>
+    <sql id="columnsDb">
+        id, name, host, port, schema, user_name, password, type, create_time, create_user_id, update_time, update_user_id, del_flag
+    </sql>
+    <sql id="columnsFile">
+        id, name, attachment_id, type, create_time, create_user_id, update_time, update_user_id, del_flag
+    </sql>
+
+    <insert id="insertApi">
+        INSERT INTO ds_api (<include refid="columnsApi"/>)
+        VALUES (#{id}, #{name}, #{url}, #{protocol}, #{type.code}, #{createTime}, #{createUserId}, #{updateTime},
+        #{updateUserId}, #{delFlag.code})
+    </insert>
+
+    <insert id="insertDb">
+        INSERT INTO ds_database (<include refid="columnsDb"/>)
+        VALUES (#{id}, #{name}, #{host}, #{port}, #{schema}, #{userName}, #{password}, #{type.code},
+        #{createTime}, #{createUserId}, #{updateTime}, #{updateUserId}, #{delFlag.code})
+    </insert>
+
+    <insert id="insertFile">
+        INSERT INTO ds_file (<include refid="columnsFile"/>)
+        VALUES (#{id}, #{name}, #{attachmentId}, #{type.code}, #{createTime}, #{createUserId}, #{updateTime},
+        #{updateUserId}, #{delFlag.code})
+    </insert>
+
+    <update id="updateFile">
+        UPDATE ds_file
+        <set>
+            <if test="attachmentId != null">attachment_id = #{attachmentId},</if>
+            <if test="name != null">name = #{name},</if>
+            <if test="type != null">type = #{type.code},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="updateUserId != null">update_user_id = #{updateUserId},</if>
+            <if test="delFlag != null">del_flag = #{delFlag.code},</if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <update id="updateApi">
+        UPDATE ds_api
+        <set>
+            <if test="url != null">url = #{url},</if>
+            <if test="protocol != null">protocol = #{protocol},</if>
+            <if test="name != null">name = #{name},</if>
+            <if test="type != null">type = #{type.code},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="updateUserId != null">update_user_id = #{updateUserId},</if>
+            <if test="delFlag != null">del_flag = #{delFlag.code},</if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <update id="updateDb">
+        UPDATE ds_database
+        <set>
+            <if test="host != null">host = #{host},</if>
+            <if test="port != null">port = #{port},</if>
+            <if test="schema != null">schema = #{schema},</if>
+            <if test="userName != null">user_name = #{userName},</if>
+            <if test="password != null">password = #{password},</if>
+            <if test="name != null">name = #{name},</if>
+            <if test="type != null">type = #{type.code},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="updateUserId != null">update_user_id = #{updateUserId},</if>
+            <if test="delFlag != null">del_flag = #{delFlag.code},</if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!-- delete -->
+    <delete id="deleteDb" parameterType="com.tyrival.entity.datasource.DataSourceQuery">
+        DELETE
+        FROM ds_database
+        WHERE id = #{dsId}
+    </delete>
+    <delete id="deleteApi" parameterType="com.tyrival.entity.datasource.DataSourceQuery">
+        DELETE
+        FROM ds_api
+        WHERE id = #{dsId}
+    </delete>
+    <delete id="deleteFile" parameterType="com.tyrival.entity.datasource.DataSourceQuery">
+        DELETE
+        FROM ds_file
+        WHERE id = #{dsId}
+    </delete>
+    <!-- delete -->
+
+    <!-- get -->
+    <select id="getApi" parameterType="com.tyrival.entity.datasource.DataSourceQuery" resultMap="apiResultMap">
+        SELECT
+        <include refid="columnsApi"/>
+        FROM ds_api
+        WHERE id = #{dsId} AND del_flag = 0
+    </select>
+
+    <select id="getDb" parameterType="com.tyrival.entity.datasource.DataSourceQuery" resultMap="databaseResultMap">
+        SELECT
+        <include refid="columnsDb"/>
+        FROM ds_database
+        WHERE id = #{dsId} AND del_flag = 0
+    </select>
+
+    <select id="getFile" parameterType="com.tyrival.entity.datasource.DataSourceQuery" resultMap="fileResultMap">
+        SELECT
+        <include refid="columnsFile"/>
+        FROM ds_file
+        WHERE id = #{dsId} AND del_flag = 0
+    </select>
+    <!-- get -->
+
+    <!-- list by user -->
+    <select id="listByUser" parameterType="com.tyrival.entity.datasource.DataSourceQuery" resultMap="dataSourceResultMap">
+        SELECT <include refid="columns"/>
+        FROM (
+            SELECT
+            <include refid="columns"/>
+            FROM ds_api
+            <where>
+                del_flag = 0
+                <if test="userId != null and !&quot;&quot;.equals(userId)">
+                    AND create_user_id=#{userId}
+                </if>
+            </where>
+            UNION ALL
+            SELECT
+            <include refid="columns"/>
+            FROM ds_database
+            <where>
+                del_flag = 0
+                <if test="userId != null and !&quot;&quot;.equals(userId)">
+                    AND create_user_id=#{userId}
+                </if>
+            </where>
+            UNION ALL
+            SELECT
+            <include refid="columns"/>
+            FROM ds_file
+            <where>
+                del_flag = 0
+                <if test="userId != null and !&quot;&quot;.equals(userId)">
+                    AND create_user_id=#{userId}
+                </if>
+            </where>
+        ) a
+        ORDER BY a.update_time DESC, a.create_time DESC
+    </select>
+    <select id="listApiByUser" parameterType="com.tyrival.entity.datasource.DataSourceQuery" resultMap="apiResultMap">
+        SELECT
+        <include refid="columnsApi"/>
+        FROM ds_api
+        <where>
+            del_flag = 0
+            <if test="userId != null and !&quot;&quot;.equals(userId)">
+                AND create_user_id=#{userId}
+            </if>
+        </where>
+        ORDER BY update_time DESC, create_time DESC
+    </select>
+    <select id="listDbByUser" parameterType="com.tyrival.entity.datasource.DataSourceQuery" resultMap="databaseResultMap">
+        SELECT
+        <include refid="columnsDb"/>
+        FROM ds_database
+        <where>
+            del_flag = 0
+            <if test="userId != null and !&quot;&quot;.equals(userId)">
+                AND create_user_id=#{userId}
+            </if>
+        </where>
+        ORDER BY update_time DESC, create_time DESC
+    </select>
+    <select id="listFileByUser" parameterType="com.tyrival.entity.datasource.DataSourceQuery" resultMap="fileResultMap">
+        SELECT
+        <include refid="columnsFile"/>
+        FROM ds_file
+        <where>
+            del_flag = 0
+            <if test="userId != null and !&quot;&quot;.equals(userId)">
+                AND create_user_id=#{userId}
+            </if>
+        </where>
+        ORDER BY update_time DESC, create_time DESC
+    </select>
+    <!-- list by user -->
+
+    <select id="queryDb" parameterType="com.tyrival.entity.datasource.db.DbQuery" resultType="java.util.HashMap">
+        ${sql}
+    </select>
+
+    <select id="listSchema" parameterType="com.tyrival.entity.datasource.db.Database" resultType="java.util.HashMap">
+        <if test="type.code == 10">
+            SELECT datname AS name
+            FROM pg_database
+        </if>
+        <if test="type.code == 11">
+            SELECT schema_name AS name
+            FROM information_schema.schemata
+        </if>
+        <if test="type.code == 12">
+            SELECT name
+            FROM v$database
+        </if>
+    </select>
+
+</mapper>

@@ -1,0 +1,21 @@
+package com.tyrival.${MODULE}.${PACKAGE}.service.impl;
+
+import com.tyrival.entity.${MODULE}.${PACKAGE}.${CLASS};
+import com.tyrival.api.base.dao.BaseDAO;
+import com.tyrival.api.base.service.impl.BaseServiceImpl;
+import com.tyrival.${MODULE}.${PACKAGE}.dao.${CLASS}DAO;
+import com.tyrival.${MODULE}.${PACKAGE}.service.${CLASS}Service;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+@Service
+public class ${CLASS}ServiceImpl extends BaseServiceImpl<${CLASS}> implements ${CLASS}Service {
+
+    @Autowired
+    private ${CLASS}DAO ${INSTANCE}DAO;
+
+    @Override
+    public BaseDAO<${CLASS}> getDAO() {
+        return ${INSTANCE}DAO;
+    }
+}

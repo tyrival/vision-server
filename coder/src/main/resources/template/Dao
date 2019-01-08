@@ -1,0 +1,12 @@
+package com.tyrival.${MODULE}.${PACKAGE}.dao;
+
+import com.tyrival.entity.${MODULE}.${PACKAGE}.*;
+import com.tyrival.api.base.dao.BaseDAO;
+import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Component;
+
+@Mapper
+@Component
+public interface ${CLASS}DAO extends BaseDAO<${CLASS}> {
+
+}

@@ -1,0 +1,15 @@
+create table ${TABLE}
+(
+  id              varchar(36) not null  constraint ${TABLE}_pkey  primary key,
+${SQL_COLUMNS}
+  create_time     date,
+  create_user_id  varchar(50),
+  update_time     date,
+  update_user_id  varchar(50),
+  del_flag        integer default 0
+);
+
+comment on table ${TABLE}
+is '${COMMENT}';
+
+${SQL_COMMENTS}

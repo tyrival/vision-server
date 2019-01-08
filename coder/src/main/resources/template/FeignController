@@ -1,0 +1,23 @@
+package com.tyrival.feign.${MODULE}.${PACKAGE}.controller;
+
+import com.tyrival.entity.${MODULE}.${PACKAGE}.${CLASS};
+import com.tyrival.api.feign.controller.FeignController;
+import com.tyrival.api.feign.service.FeignService;
+import com.tyrival.feign.${MODULE}.${PACKAGE}.service.${CLASS}Service;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@RequestMapping("/${URL}")
+public class ${CLASS}Controller extends FeignController<${CLASS}> {
+
+    @Autowired
+    private ${CLASS}Service ${INSTANCE}Service;
+
+    @Override
+    public FeignService getService() {
+        return ${INSTANCE}Service;
+    }
+
+}

@@ -1,0 +1,1 @@
+        <result property="${FIELD_NAME}" column="${FIELD_COLUMN}"/>
