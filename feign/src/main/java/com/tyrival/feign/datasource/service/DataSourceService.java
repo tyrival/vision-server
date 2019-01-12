@@ -41,8 +41,8 @@ public interface DataSourceService {
     @RequestMapping(value = "/query")
     Result query(@RequestBody DataSourceQuery query);
 
-    @RequestMapping(value = "/list_schema")
-    Result listSchema(@RequestBody Database database);
+    @RequestMapping(value = "/list_db")
+    Result listDb(@RequestBody Database database);
 
     @RequestMapping(value = "/api_proxy")
     Result apiProxy(@RequestBody HttpRequest request);

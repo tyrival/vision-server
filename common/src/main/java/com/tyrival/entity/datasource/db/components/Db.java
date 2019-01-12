@@ -6,7 +6,7 @@ package com.tyrival.entity.datasource.db.components;
  * @Date: 2018/12/12
  * @Version: V1.0
  */
-public class Schema {
+public class Db {
 
     private String name;
 

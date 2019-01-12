@@ -18,7 +18,7 @@ public class Database extends DataSource {
     /**
      * 数据库
      */
-    private String schema;
+    private String db;
 
     /**
      * 用户名
@@ -46,12 +46,12 @@ public class Database extends DataSource {
         this.port = port;
     }
 
-    public String getSchema() {
-        return schema;
+    public String getDb() {
+        return db;
     }
 
-    public void setSchema(String schema) {
-        this.schema = schema;
+    public void setDb(String db) {
+        this.db = db;
     }
 
     public String getUserName() {

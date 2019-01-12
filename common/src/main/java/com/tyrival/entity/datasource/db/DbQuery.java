@@ -17,7 +17,7 @@ public class DbQuery extends Database {
         this.setId(database.getId());
         this.setHost(database.getHost());
         this.setPort(database.getPort());
-        this.setSchema(database.getSchema());
+        this.setDb(database.getDb());
         this.setUserName(database.getUserName());
         this.setPassword(database.getPassword());
         this.setType(database.getType());

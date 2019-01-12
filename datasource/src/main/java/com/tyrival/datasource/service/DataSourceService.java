@@ -4,7 +4,7 @@ import com.tyrival.entity.datasource.DataSource;
 import com.tyrival.entity.datasource.DataSourceQuery;
 import com.tyrival.entity.datasource.api.ApiSource;
 import com.tyrival.entity.datasource.db.Database;
-import com.tyrival.entity.datasource.db.components.Schema;
+import com.tyrival.entity.datasource.db.components.Db;
 import com.tyrival.entity.datasource.file.FileSource;
 
 import java.util.List;
@@ -77,7 +77,7 @@ public interface DataSourceService<T extends DataSource> {
     List<Map<String, Object>> query(DataSourceQuery dbQuery);
 
     /**
-     * 查询Schema
+     * 查询Db
      */
-    List<Schema> listSchema(Database database);
+    List<Db> listDb(Database database);
 }

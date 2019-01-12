@@ -23,7 +23,7 @@ public enum DataSourceTypeEnum implements BaseEnum, IDatabase {
                     .append(":")
                     .append(database.getPort())
                     .append("/")
-                    .append(database.getSchema());
+                    .append(database.getDb());
             return url.toString();
         }
     },
@@ -35,7 +35,7 @@ public enum DataSourceTypeEnum implements BaseEnum, IDatabase {
                     .append(":")
                     .append(database.getPort())
                     .append("/")
-                    .append(database.getSchema())
+                    .append(database.getDb())
                     .append("?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC");
             return url.toString();
         }
@@ -48,7 +48,7 @@ public enum DataSourceTypeEnum implements BaseEnum, IDatabase {
                     .append(":")
                     .append(database.getPort())
                     .append("/")
-                    .append(database.getSchema());
+                    .append(database.getDb());
             return url.toString();
         }
     },

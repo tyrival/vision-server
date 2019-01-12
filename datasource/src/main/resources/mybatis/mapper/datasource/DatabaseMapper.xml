@@ -30,7 +30,7 @@
         <result property="name" column="name"/>
         <result property="host" column="host"/>
         <result property="port" column="port"/>
-        <result property="schema" column="schema"/>
+        <result property="db" column="db"/>
         <result property="userName" column="user_name"/>
         <result property="password" column="password"/>
         <result property="type" column="type" typeHandler="com.tyrival.typehandler.EnumTypeHandler"/>
@@ -59,7 +59,7 @@
         id, name, url, protocol, type, create_time, create_user_id, update_time, update_user_id, del_flag
     </sql>
     <sql id="columnsDb">
-        id, name, host, port, schema, user_name, password, type, create_time, create_user_id, update_time, update_user_id, del_flag
+        id, name, host, port, db, user_name, password, type, create_time, create_user_id, update_time, update_user_id, del_flag
     </sql>
     <sql id="columnsFile">
         id, name, attachment_id, type, create_time, create_user_id, update_time, update_user_id, del_flag
@@ -73,7 +73,7 @@
 
     <insert id="insertDb">
         INSERT INTO ds_database (<include refid="columnsDb"/>)
-        VALUES (#{id}, #{name}, #{host}, #{port}, #{schema}, #{userName}, #{password}, #{type.code},
+        VALUES (#{id}, #{name}, #{host}, #{port}, #{db}, #{userName}, #{password}, #{type.code},
         #{createTime}, #{createUserId}, #{updateTime}, #{updateUserId}, #{delFlag.code})
     </insert>
 
@@ -115,7 +115,7 @@
         <set>
             <if test="host != null">host = #{host},</if>
             <if test="port != null">port = #{port},</if>
-            <if test="schema != null">schema = #{schema},</if>
+            <if test="db != null">db = #{db},</if>
             <if test="userName != null">user_name = #{userName},</if>
             <if test="password != null">password = #{password},</if>
             <if test="name != null">name = #{name},</if>
@@ -246,7 +246,7 @@
         ${sql}
     </select>
 
-    <select id="listSchema" parameterType="com.tyrival.entity.datasource.db.Database" resultType="java.util.HashMap">
+    <select id="listDb" parameterType="com.tyrival.entity.datasource.db.Database" resultType="java.util.HashMap">
         <if test="type.code == 10">
             SELECT datname AS name
             FROM pg_database

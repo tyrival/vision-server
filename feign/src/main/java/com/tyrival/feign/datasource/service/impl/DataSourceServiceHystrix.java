@@ -60,7 +60,7 @@ public class DataSourceServiceHystrix implements DataSourceService {
     }
 
     @Override
-    public Result listSchema(Database database) {
+    public Result listDb(Database database) {
         return new Result(new CommonException(ExceptionEnum.HYSTRIX));
     }
 

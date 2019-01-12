@@ -30,7 +30,7 @@ public class Factory {
 //        javaBean.addField(new Field("name", "String", "名称"))
 //                .addField(new Field("host", "String", "域名"))
 //                .addField(new Field("port", "String", "端口"))
-//                .addField(new Field("schema", "String", "数据库"))
+//                .addField(new Field("db", "String", "数据库"))
 //                .addField(new Field("userName", "String", "用户名"))
 //                .addField(new Field("password", "String", "密码"))
 //                .addField(new Field("sql", "String", "查询语句"))

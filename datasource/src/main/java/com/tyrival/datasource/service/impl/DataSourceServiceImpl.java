@@ -8,7 +8,7 @@ import com.tyrival.entity.datasource.DataSourceQuery;
 import com.tyrival.entity.datasource.api.ApiSource;
 import com.tyrival.entity.datasource.db.Database;
 import com.tyrival.entity.datasource.db.DbQuery;
-import com.tyrival.entity.datasource.db.components.Schema;
+import com.tyrival.entity.datasource.db.components.Db;
 import com.tyrival.entity.datasource.file.FileSource;
 import com.tyrival.enums.base.ApiEnum;
 import com.tyrival.enums.datasource.DataSourceTypeEnum;
@@ -156,8 +156,8 @@ public class DataSourceServiceImpl<T extends DataSource> implements DataSourceSe
     }
 
     @Override
-    public List<Schema> listSchema(Database database) {
-        return this.dataSourceDAO.listSchema(database);
+    public List<Db> listDb(Database database) {
+        return this.dataSourceDAO.listDb(database);
     }
 
     public List<Map<String, Object>> queryDatabase(DbQuery dbQuery) {

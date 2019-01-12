@@ -6,7 +6,7 @@ import com.tyrival.entity.datasource.DataSourceQuery;
 import com.tyrival.entity.datasource.api.ApiSource;
 import com.tyrival.entity.datasource.db.Database;
 import com.tyrival.entity.datasource.db.DbQuery;
-import com.tyrival.entity.datasource.db.components.Schema;
+import com.tyrival.entity.datasource.db.components.Db;
 import com.tyrival.entity.datasource.file.FileSource;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
@@ -79,8 +79,8 @@ public interface DataSourceDAO {
 
 
     /**
-     * 查询Schema
+     * 查询Db
      */
     @DynamicDatabase
-    List<Schema> listSchema(Database database);
+    List<Db> listDb(Database database);
 }

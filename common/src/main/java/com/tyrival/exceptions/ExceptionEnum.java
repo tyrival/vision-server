@@ -68,7 +68,7 @@ public enum ExceptionEnum implements Serializable {
     DATASOURCE_NOT_FOUND(DATASOURCE_EXP_PREFIX + "001", "未找到动态数据源"),
     DYNAMIC_QUERY_FAIL(DATASOURCE_EXP_PREFIX + "002", "数据查询失败"),
     NOT_DB_SOURCE(DATASOURCE_EXP_PREFIX + "003", "此数据源不是数据库"),
-    QUERY_SCHEMA_FAIL(DATASOURCE_EXP_PREFIX + "004", "查询数据库schema失败"),
+    QUERY_DB_FAIL(DATASOURCE_EXP_PREFIX + "004", "查询数据库失败"),
     API_PROXY_FAIL(DATASOURCE_EXP_PREFIX + "005", "请求代理失败"),
     URL_NULL(DATASOURCE_EXP_PREFIX + "006", "URL为空"),
 

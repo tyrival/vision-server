@@ -157,12 +157,12 @@ public class DataSourceController {
         }
     }
 
-    @RequestMapping("/list_schema")
-    public Result listSchema(@RequestBody Database database) {
+    @RequestMapping("/list_db")
+    public Result listDb(@RequestBody Database database) {
         try {
-            return new Result(this.dataSourceService.listSchema(database));
+            return new Result(this.dataSourceService.listDb(database));
         } catch (Exception e) {
-            return new Result(new CommonException(ExceptionEnum.QUERY_SCHEMA_FAIL));
+            return new Result(new CommonException(ExceptionEnum.QUERY_DB_FAIL));
         }
     }
 

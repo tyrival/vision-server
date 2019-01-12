@@ -65,9 +65,9 @@ public class DataSourceController {
         return this.dataSourceService.query(query);
     }
 
-    @RequestMapping(value = "/list_schema")
-    public Result<DataSource> listSchema(@RequestBody Database database) {
-        return this.dataSourceService.listSchema(database);
+    @RequestMapping(value = "/list_db")
+    public Result<DataSource> listDb(@RequestBody Database database) {
+        return this.dataSourceService.listDb(database);
     }
     @RequestMapping(value = "/api_proxy")
     public Result<DataSource> apiProxy(@RequestBody HttpRequest request) {
