@@ -4,7 +4,7 @@ create table ds_database
   name  varchar(100),
   host  varchar(2000),
   port  varchar(10),
-  db  varchar(100),
+  db_name  varchar(100),
   user_name  varchar(100),
   password  varchar(255),
   type  integer,
@@ -21,7 +21,7 @@ is '数据库';
 comment on column ds_database.name is '名称';
 comment on column ds_database.host is '域名';
 comment on column ds_database.port is '端口';
-comment on column ds_database.db is '数据库';
+comment on column ds_database.db_name is '数据库';
 comment on column ds_database.user_name is '用户名';
 comment on column ds_database.password is '密码';
 comment on column ds_database.type is '类型';
