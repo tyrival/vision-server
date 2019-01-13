@@ -246,7 +246,7 @@
         ${sql}
     </select>
 
-    <select id="listDb" parameterType="com.tyrival.entity.datasource.db.Database" resultType="java.util.HashMap">
+    <select id="listDb" parameterType="com.tyrival.entity.datasource.db.Database" resultType="java.lang.String">
         <if test="type.code == 10">
             SELECT datname AS name
             FROM pg_database
