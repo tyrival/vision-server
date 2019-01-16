@@ -43,8 +43,10 @@ public class DataSourceController {
     public Result saveDatabase(@RequestBody Database database) {
         try {
             return new Result(this.save(database));
+        } catch (CommonException e) {
+            return new Result(e);
         } catch (Exception e) {
-            return new Result(new CommonException(ExceptionEnum.SAVE_FAIL));
+            return new Result(ExceptionEnum.SAVE_FAIL);
         }
     }
 
@@ -52,8 +54,10 @@ public class DataSourceController {
     public Result saveApi(@RequestBody ApiSource apiSource) {
         try {
             return new Result(this.save(apiSource));
+        } catch (CommonException e) {
+            return new Result(e);
         } catch (Exception e) {
-            return new Result(new CommonException(ExceptionEnum.SAVE_FAIL));
+            return new Result(ExceptionEnum.SAVE_FAIL);
         }
     }
 
@@ -61,8 +65,10 @@ public class DataSourceController {
     public Result saveFile(@RequestBody FileSource fileSource) {
         try {
             return new Result(this.save(fileSource));
+        } catch (CommonException e) {
+            return new Result(e);
         } catch (Exception e) {
-            return new Result(new CommonException(ExceptionEnum.SAVE_FAIL));
+            return new Result(ExceptionEnum.SAVE_FAIL);
         }
     }
 
@@ -88,8 +94,10 @@ public class DataSourceController {
     public Result delete(@RequestBody DataSourceQuery query) {
         try {
             return new Result(this.dataSourceService.delete(query));
+        } catch (CommonException e) {
+            return new Result(e);
         } catch (Exception e) {
-            return new Result(new CommonException(ExceptionEnum.DELETE_FAIL));
+            return new Result(ExceptionEnum.DELETE_FAIL);
         }
     }
 
@@ -97,8 +105,10 @@ public class DataSourceController {
     public Result get(@RequestBody DataSourceQuery query) {
         try {
             return new Result(this.dataSourceService.get(query));
+        } catch (CommonException e) {
+            return new Result(e);
         } catch (Exception e) {
-            return new Result(new CommonException(ExceptionEnum.QUERY_FAIL));
+            return new Result(ExceptionEnum.QUERY_FAIL);
         }
     }
 
@@ -107,13 +117,15 @@ public class DataSourceController {
         try {
             User user = this.getCurrentUser();
             if (user == null) {
-                return new Result(new CommonException(ExceptionEnum.QUERY_FAIL));
+                return new Result(ExceptionEnum.QUERY_FAIL);
             }
             DataSourceQuery query = new DataSourceQuery();
             query.setUserId(user.getId());
             return new Result(this.dataSourceService.listByUser(query));
+        } catch (CommonException e) {
+            return new Result(e);
         } catch (Exception e) {
-            return new Result(new CommonException(ExceptionEnum.QUERY_FAIL));
+            return new Result(ExceptionEnum.QUERY_FAIL);
         }
     }
 
@@ -122,13 +134,15 @@ public class DataSourceController {
         try {
             User user = this.getCurrentUser();
             if (user == null) {
-                return new Result(new CommonException(ExceptionEnum.QUERY_FAIL));
+                return new Result(ExceptionEnum.QUERY_FAIL);
             }
             DataSourceQuery query = new DataSourceQuery();
             query.setUserId(user.getId());
             return new Result(this.dataSourceService.listDbByUser(query));
+        } catch (CommonException e) {
+            return new Result(e);
         } catch (Exception e) {
-            return new Result(new CommonException(ExceptionEnum.QUERY_FAIL));
+            return new Result(ExceptionEnum.QUERY_FAIL);
         }
     }
 
@@ -137,13 +151,15 @@ public class DataSourceController {
         try {
             User user = this.getCurrentUser();
             if (user == null) {
-                return new Result(new CommonException(ExceptionEnum.QUERY_FAIL));
+                return new Result(ExceptionEnum.QUERY_FAIL);
             }
             DataSourceQuery query = new DataSourceQuery();
             query.setUserId(user.getId());
             return new Result(this.dataSourceService.listFileByUser(query));
+        } catch (CommonException e) {
+            return new Result(e);
         } catch (Exception e) {
-            return new Result(new CommonException(ExceptionEnum.QUERY_FAIL));
+            return new Result(ExceptionEnum.QUERY_FAIL);
         }
     }
 
@@ -152,8 +168,10 @@ public class DataSourceController {
         try {
             List<Map<String, Object>> list = this.dataSourceService.query(query);
             return new Result(list);
+        } catch (CommonException e) {
+            return new Result(e);
         } catch (Exception e) {
-            return new Result(new CommonException(ExceptionEnum.DYNAMIC_QUERY_FAIL));
+            return new Result(ExceptionEnum.DYNAMIC_QUERY_FAIL);
         }
     }
 
@@ -161,8 +179,10 @@ public class DataSourceController {
     public Result listDb(@RequestBody Database database) {
         try {
             return new Result(this.dataSourceService.listDb(database));
+        } catch (CommonException e) {
+            return new Result(e);
         } catch (Exception e) {
-            return new Result(new CommonException(ExceptionEnum.QUERY_DB_FAIL));
+            return new Result(ExceptionEnum.QUERY_DB_FAIL);
         }
     }
 
@@ -171,12 +191,14 @@ public class DataSourceController {
         try {
             String url = request.getUrl();
             if (StringUtils.isEmpty(url)) {
-                return new Result(new CommonException(ExceptionEnum.URL_NULL));
+                return new Result(ExceptionEnum.URL_NULL);
             }
             HttpResponse response = HttpUtil.proxy(request);
             return new Result(response.getBody());
+        } catch (CommonException e) {
+            return new Result(e);
         } catch (Exception e) {
-            return new Result(new CommonException(ExceptionEnum.API_PROXY_FAIL));
+            return new Result(ExceptionEnum.API_PROXY_FAIL);
         }
     }
 

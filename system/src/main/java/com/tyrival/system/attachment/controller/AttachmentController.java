@@ -41,8 +41,10 @@ public class AttachmentController extends BaseController<Attachment> {
         try {
             Attachment attachment = attachmentService.upload(file);
             return new Result(attachment);
+        } catch (CommonException e) {
+            return new Result(e);
         } catch (Exception e) {
-            return new Result(new CommonException(ExceptionEnum.UPLOAD_FAIL));
+            return new Result(ExceptionEnum.UPLOAD_FAIL);
         }
     }
 

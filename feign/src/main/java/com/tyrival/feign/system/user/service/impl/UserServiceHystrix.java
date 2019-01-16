@@ -19,11 +19,11 @@ public class UserServiceHystrix extends FeignServiceHystrix<User> implements Use
 
     @Override
     public Result login(User user) {
-        return new Result(new CommonException(ExceptionEnum.HYSTRIX));
+        return new Result(ExceptionEnum.HYSTRIX);
     }
 
     @Override
     public Result<User> changePassword(String originalPwd, String newPwd, String repeatPwd)  {
-        return new Result(new CommonException(ExceptionEnum.HYSTRIX));
+        return new Result(ExceptionEnum.HYSTRIX);
     }
 }

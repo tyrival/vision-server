@@ -18,36 +18,36 @@ public class FeignServiceHystrix<T> implements FeignService<T> {
 
     @Override
     public Result save(T t) {
-        return new Result(new CommonException(ExceptionEnum.HYSTRIX));
+        return new Result(ExceptionEnum.HYSTRIX);
     }
 
     @Override
     public Result create(T t) {
-        return new Result(new CommonException(ExceptionEnum.HYSTRIX));
+        return new Result(ExceptionEnum.HYSTRIX);
     }
 
     @Override
     public Result update(T t) {
-        return new Result(new CommonException(ExceptionEnum.HYSTRIX));
+        return new Result(ExceptionEnum.HYSTRIX);
     }
 
     @Override
     public Result delete(String id) {
-        return new Result(new CommonException(ExceptionEnum.HYSTRIX));
+        return new Result(ExceptionEnum.HYSTRIX);
     }
 
     @Override
     public Result get(String id) {
-        return new Result(new CommonException(ExceptionEnum.HYSTRIX));
+        return new Result(ExceptionEnum.HYSTRIX);
     }
 
     @Override
     public Result list(Parameter parameter) {
-        return new Result(new CommonException(ExceptionEnum.HYSTRIX));
+        return new Result(ExceptionEnum.HYSTRIX);
     }
 
     @Override
     public Result listByPage(Parameter parameter) {
-        return new Result(new CommonException(ExceptionEnum.HYSTRIX));
+        return new Result(ExceptionEnum.HYSTRIX);
     }
 }

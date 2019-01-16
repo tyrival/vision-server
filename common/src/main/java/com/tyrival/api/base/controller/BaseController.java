@@ -36,7 +36,7 @@ public abstract class BaseController<T> {
     public Result save(@RequestBody T t) {
         try {
             if (!(t instanceof Base)) {
-                return new Result(new CommonException(ExceptionEnum.CLASS_CONVERT_ERROR));
+                return new Result(ExceptionEnum.CLASS_CONVERT_ERROR);
             }
             Base base = (Base) t;
             User user = this.getCurrentUser();
@@ -53,8 +53,10 @@ public abstract class BaseController<T> {
                 t = (T) this.getService().update(t);
             }
             return new Result(t);
+        } catch (CommonException e) {
+            return new Result(e);
         } catch (Exception e) {
-            return new Result(new CommonException(ExceptionEnum.SAVE_FAIL));
+            return new Result(ExceptionEnum.SAVE_FAIL);
         }
     }
 
@@ -69,8 +71,10 @@ public abstract class BaseController<T> {
                 return new Result(base);
             }
             return new Result(t);
+        } catch (CommonException e) {
+            return new Result(e);
         } catch (Exception e) {
-            return new Result(new CommonException(ExceptionEnum.CREATE_FAIL));
+            return new Result(ExceptionEnum.CREATE_FAIL);
         }
     }
 
@@ -85,8 +89,10 @@ public abstract class BaseController<T> {
                 return new Result(base);
             }
             return new Result(t);
+        } catch (CommonException e) {
+            return new Result(e);
         } catch (Exception e) {
-            return new Result(new CommonException(ExceptionEnum.UPDATE_FAIL));
+            return new Result(ExceptionEnum.UPDATE_FAIL);
         }
     }
 
@@ -97,8 +103,10 @@ public abstract class BaseController<T> {
             Result result = new Result();
             result.setSuccess(i > 0);
             return result;
+        } catch (CommonException e) {
+            return new Result(e);
         } catch (Exception e) {
-            return new Result(new CommonException(ExceptionEnum.DELETE_FAIL));
+            return new Result(ExceptionEnum.DELETE_FAIL);
         }
     }
 
@@ -107,8 +115,10 @@ public abstract class BaseController<T> {
         try {
             T t = (T) this.getService().get(id);
             return new Result(t);
+        } catch (CommonException e) {
+            return new Result(e);
         } catch (Exception e) {
-            return new Result(new CommonException(ExceptionEnum.QUERY_FAIL));
+            return new Result(ExceptionEnum.QUERY_FAIL);
         }
     }
 
@@ -117,8 +127,10 @@ public abstract class BaseController<T> {
         try {
             List<T> list = this.getService().list(parameter);
             return new Result(list);
+        } catch (CommonException e) {
+            return new Result(e);
         } catch (Exception e) {
-            return new Result(new CommonException(ExceptionEnum.QUERY_FAIL));
+            return new Result(ExceptionEnum.QUERY_FAIL);
         }
     }
 
@@ -127,8 +139,10 @@ public abstract class BaseController<T> {
         try {
             Result result = this.getService().listByPage(parameter);
             return result;
+        } catch (CommonException e) {
+            return new Result(e);
         } catch (Exception e) {
-            return new Result(new CommonException(ExceptionEnum.QUERY_FAIL));
+            return new Result(ExceptionEnum.QUERY_FAIL);
         }
     }
 

@@ -16,56 +16,56 @@ public class DataSourceServiceHystrix implements DataSourceService {
 
     @Override
     public Result saveDatabase(Database database) {
-        return new Result(new CommonException(ExceptionEnum.HYSTRIX));
+        return new Result(ExceptionEnum.HYSTRIX);
     }
 
     @Override
     public Result saveApi(ApiSource apiSource) {
-        return new Result(new CommonException(ExceptionEnum.HYSTRIX));
+        return new Result(ExceptionEnum.HYSTRIX);
     }
 
     @Override
     public Result saveFile(FileSource fileSource) {
-        return new Result(new CommonException(ExceptionEnum.HYSTRIX));
+        return new Result(ExceptionEnum.HYSTRIX);
     }
 
     @Override
     public Result delete(DataSourceQuery query) {
-        return new Result(new CommonException(ExceptionEnum.HYSTRIX));
+        return new Result(ExceptionEnum.HYSTRIX);
     }
 
     @Override
     public Result get(DataSourceQuery query) {
-        return new Result(new CommonException(ExceptionEnum.HYSTRIX));
+        return new Result(ExceptionEnum.HYSTRIX);
     }
 
     @Override
     public Result listByUser() {
-        return new Result(new CommonException(ExceptionEnum.HYSTRIX));
+        return new Result(ExceptionEnum.HYSTRIX);
     }
 
     @Override
     public Result listDbByUser() {
-        return new Result(new CommonException(ExceptionEnum.HYSTRIX));
+        return new Result(ExceptionEnum.HYSTRIX);
     }
 
     @Override
     public Result listFileByUser() {
-        return new Result(new CommonException(ExceptionEnum.HYSTRIX));
+        return new Result(ExceptionEnum.HYSTRIX);
     }
 
     @Override
     public Result query(DataSourceQuery query) {
-        return new Result(new CommonException(ExceptionEnum.HYSTRIX));
+        return new Result(ExceptionEnum.HYSTRIX);
     }
 
     @Override
     public Result listDb(Database database) {
-        return new Result(new CommonException(ExceptionEnum.HYSTRIX));
+        return new Result(ExceptionEnum.HYSTRIX);
     }
 
     @Override
     public Result apiProxy(HttpRequest request) {
-        return new Result(new CommonException(ExceptionEnum.HYSTRIX));
+        return new Result(ExceptionEnum.HYSTRIX);
     }
 }

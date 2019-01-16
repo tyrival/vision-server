@@ -33,8 +33,10 @@ public class ScreenController extends BaseController<Screen> {
     public Result get(@RequestParam("id") String id) {
         try {
             return new Result(this.screenService.get(id));
+        } catch (CommonException e) {
+            return new Result(e);
         } catch (Exception e) {
-            return new Result(new CommonException(ExceptionEnum.QUERY_FAIL));
+            return new Result(ExceptionEnum.QUERY_FAIL);
         }
     }
 
@@ -43,8 +45,10 @@ public class ScreenController extends BaseController<Screen> {
         try {
             screen.setId(UUID.randomUUID().toString());
             return new Result(this.screenService.preview(screen));
+        } catch (CommonException e) {
+            return new Result(e);
         } catch (Exception e) {
-            return new Result(new CommonException(ExceptionEnum.SCREEN_PREVIEW_FAIL));
+            return new Result(ExceptionEnum.SCREEN_PREVIEW_FAIL);
         }
     }
 
@@ -53,7 +57,7 @@ public class ScreenController extends BaseController<Screen> {
         try {
             return this.save(screen);
         } catch (Exception e) {
-            return new Result(new CommonException(ExceptionEnum.SCREEN_PUBLISH_FAIL));
+            return new Result(ExceptionEnum.SCREEN_PUBLISH_FAIL);
         }
     }
 }

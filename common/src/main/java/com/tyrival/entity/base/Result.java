@@ -2,6 +2,7 @@ package com.tyrival.entity.base;
 
 import com.tyrival.exceptions.CommonException;
 import com.google.gson.Gson;
+import com.tyrival.exceptions.ExceptionEnum;
 
 import java.io.Serializable;
 
@@ -45,6 +46,12 @@ public class Result<T> implements Serializable {
         this.success = false;
         this.errorCode = exception.getCodeEnum().getCode();
         this.message = exception.getCodeEnum().getMessage();
+    }
+
+    public Result(ExceptionEnum exception) {
+        this.success = false;
+        this.errorCode = exception.getCode();
+        this.message = exception.getMessage();
     }
 
     public Result(T data, CommonException exception) {

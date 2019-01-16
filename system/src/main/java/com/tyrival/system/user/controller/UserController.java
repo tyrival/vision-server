@@ -41,21 +41,24 @@ public class UserController extends BaseController<User> {
                 user = this.userService.getByAccount(user.getAccount());
                 return new Result(Token.generate(user));
             } else {
-                return new Result(new CommonException(ExceptionEnum.PASSWORD_ERROR));
+                return new Result(ExceptionEnum.PASSWORD_ERROR);
             }
         } catch (CommonException e) {
             return new Result(e);
+        } catch (Exception e) {
+            return new Result(ExceptionEnum.UNKNOW_ERROR);
         }
+
     }
 
     @RequestMapping("/change_password")
     public Result changePassword(String originalPwd, String newPwd, String repeatPwd) {
         try {
             if (StringUtils.isEmpty(newPwd)) {
-                return new Result(new CommonException(ExceptionEnum.PASSWORD_NULL));
+                return new Result(ExceptionEnum.PASSWORD_NULL);
             }
             if (!newPwd.equals(repeatPwd)) {
-                return new Result(new CommonException(ExceptionEnum.PASSWORD_DIFFERENT));
+                return new Result(ExceptionEnum.PASSWORD_DIFFERENT);
             }
             User user = this.getCurrentUser();
             user = this.userService.get(user.getId());
@@ -66,7 +69,7 @@ public class UserController extends BaseController<User> {
                 user = this.userService.update(user);
                 return new Result();
             }
-            return new Result(new CommonException(ExceptionEnum.UNKNOW_ERROR));
+            return new Result(ExceptionEnum.UNKNOW_ERROR);
         } catch (CommonException e) {
             return new Result(e);
         }

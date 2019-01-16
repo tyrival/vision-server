@@ -46,8 +46,10 @@ public class ElasticController {
     public Result search(@RequestBody SearchParam param) {
         try {
             return new Result(this.elasticService.search(param));
+        } catch (CommonException e) {
+            return new Result(e);
         } catch (Exception e) {
-            return new Result(new CommonException(ExceptionEnum.ELASTIC_QUERY_FAIL));
+            return new Result(ExceptionEnum.ELASTIC_QUERY_FAIL);
         }
     }
 
@@ -60,7 +62,7 @@ public class ElasticController {
     public Result operate(@RequestBody OperateParam param) {
         try {
             if (StringUtils.isEmpty(param.getId())) {
-                return new Result(new CommonException(ExceptionEnum.ELASTIC_ID_NULL));
+                return new Result(ExceptionEnum.ELASTIC_ID_NULL);
             }
             EsOperateEnum operate = param.getOperate();
             boolean async = param.getAsync();
@@ -71,7 +73,7 @@ public class ElasticController {
             switch (operate) {
                 case CREATE:
                     if (param.getMap() == null || param.getMap().size() <= 0) {
-                        return new Result(new CommonException(ExceptionEnum.ELASTIC_NOT_JSON));
+                        return new Result(ExceptionEnum.ELASTIC_NOT_JSON);
                     }
                     if (async) {
                         this.elasticService.createAsync(param.getMap(), id, index, type, EMPTY_LISTENER);
@@ -81,7 +83,7 @@ public class ElasticController {
                     break;
                 case UPDATE:
                     if (param.getMap() == null || param.getMap().size() <= 0) {
-                        return new Result(new CommonException(ExceptionEnum.ELASTIC_NOT_JSON));
+                        return new Result(ExceptionEnum.ELASTIC_NOT_JSON);
                     }
                     if (async) {
                         this.elasticService.updateAsync(param.getMap(), id, index, type, EMPTY_LISTENER);
@@ -106,8 +108,10 @@ public class ElasticController {
                     break;
             }
             return response == null ? new Result() : new Result(response);
+        } catch (CommonException e) {
+            return new Result(e);
         } catch (Exception e) {
-            return new Result(new CommonException(ExceptionEnum.ELASTIC_OPERATE_FAIL));
+            return new Result(ExceptionEnum.ELASTIC_OPERATE_FAIL);
         }
     }
 

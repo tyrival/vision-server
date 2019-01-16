@@ -13,11 +13,11 @@ public class ScreenServiceHystrix extends FeignServiceHystrix<Screen> implements
 
     @Override
     public Result<Screen> preview(Screen screen)  {
-        return new Result(new CommonException(ExceptionEnum.HYSTRIX));
+        return new Result(ExceptionEnum.HYSTRIX);
     }
 
     @Override
     public Result<Screen> publish(Screen screen) {
-        return new Result(new CommonException(ExceptionEnum.HYSTRIX));
+        return new Result(ExceptionEnum.HYSTRIX);
     }
 }

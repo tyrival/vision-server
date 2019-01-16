@@ -23,7 +23,7 @@ public class AttachmentServiceHystrix extends FeignServiceHystrix<Attachment> im
 
     @Override
     public Result upload(HttpServletRequest request, HttpServletResponse response, MultipartFile file) {
-        return new Result(new CommonException(ExceptionEnum.HYSTRIX));
+        return new Result(ExceptionEnum.HYSTRIX);
     }
 
     @Override
