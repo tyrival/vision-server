@@ -102,7 +102,7 @@
             <scope>runtime</scope>
         </dependency>
 
-        <!-- PostgreSQL -->
+        <!-- Oracle -->
         <dependency>
             <groupId>com.oracle</groupId>
             <artifactId>ojdbc14</artifactId>

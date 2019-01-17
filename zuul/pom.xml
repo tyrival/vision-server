@@ -17,6 +17,10 @@
         <version>1.0</version>
     </parent>
 
+    <properties>
+        <docker-image-name>vision-zuul</docker-image-name>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.springframework.cloud</groupId>

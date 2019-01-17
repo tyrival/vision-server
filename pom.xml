@@ -24,14 +24,13 @@
         <module>config-server</module>
         <module>eureka-server</module>
         <module>common</module>
-        <module>datasource</module>
-        <module>system</module>
+        <module>redis</module>
         <module>feign</module>
         <module>zuul</module>
+        <module>datasource</module>
         <module>elastic</module>
-        <module>redis</module>
         <module>vision</module>
-        <module>zuul</module>
+        <module>system</module>
     </modules>
 
     <properties>
@@ -42,6 +41,8 @@
         <feign-form.version>3.2.2</feign-form.version>
         <spring-boot-mybatis.version>1.3.1</spring-boot-mybatis.version>
         <spring-boot-pagehelper.version>1.2.3</spring-boot-pagehelper.version>
+        <docker-maven-plugin.version>1.2.0</docker-maven-plugin.version>
+        <docker-image-name>vision</docker-image-name>
     </properties>
 
     <dependencies>
@@ -105,6 +106,24 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <version>${docker-maven-plugin.version}</version>
+                <configuration>
+                    <!-- 注意imageName要符合正则[a-z0-9-_.]的，否则构建不会成功 -->
+                    <imageName>${docker-image-name}</imageName>
+                    <baseImage>java</baseImage>
+                    <entryPoint>["java", "-jar", "/${project.build.finalName}.jar"]</entryPoint>
+                    <resources>
+                        <resource>
+                            <targetPath>/</targetPath>
+                            <directory>${project.build.directory}</directory>
+                            <include>${project.build.finalName}.jar</include>
+                        </resource>
+                    </resources>
+                </configuration>
             </plugin>
         </plugins>
     </build>

@@ -6,7 +6,7 @@
     <groupId>com.tyrival</groupId>
     <artifactId>system</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <packaging>war</packaging>
+    <packaging>jar</packaging>
 
     <name>system</name>
     <description>Demo project for Spring Boot</description>
@@ -16,6 +16,10 @@
         <artifactId>vision-server</artifactId>
         <version>1.0</version>
     </parent>
+
+    <properties>
+        <docker-image-name>vision-system</docker-image-name>
+    </properties>
 
     <dependencies>
         <dependency>
