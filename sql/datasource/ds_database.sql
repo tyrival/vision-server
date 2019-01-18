@@ -4,7 +4,7 @@ create table ds_database
   name  varchar(100),
   host  varchar(2000),
   port  varchar(10),
-  db_name  varchar(100),
+  db    varchar(100),
   user_name  varchar(100),
   password  varchar(255),
   type  integer,
