@@ -68,6 +68,13 @@
             <version>${spring-cloud-openfeign.version}</version>
         </dependency>
 
+        <!-- 配置文件载入 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
+        </dependency>
+
         <!-- AOP -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

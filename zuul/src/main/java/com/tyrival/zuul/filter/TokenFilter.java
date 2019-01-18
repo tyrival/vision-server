@@ -10,11 +10,17 @@ import com.github.pagehelper.util.StringUtil;
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
 import io.jsonwebtoken.ExpiredJwtException;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 
 import javax.servlet.http.HttpServletRequest;
+
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static com.netflix.zuul.context.RequestContext.getCurrentContext;
 
@@ -25,10 +31,10 @@ import static com.netflix.zuul.context.RequestContext.getCurrentContext;
  * @Version: V1.0
  */
 @RefreshScope
+@ConfigurationProperties(prefix = "filter.token")
 public class TokenFilter extends ZuulFilter {
 
-    @Value("${filter.token.excludeUri}")
-    private String excludeUri;
+    private List<String> excludeUri;
 
     @Autowired
     private UserService userService;
@@ -45,15 +51,20 @@ public class TokenFilter extends ZuulFilter {
 
     @Override
     public boolean shouldFilter() {
-        String[] uriArray = excludeUri.split(",");
+        if (this.excludeUri == null || this.excludeUri.size() <= 0) {
+            return true;
+        }
         RequestContext ctx = RequestContext.getCurrentContext();
         HttpServletRequest request = ctx.getRequest();
         String uri = request.getRequestURI();
-        if (StringUtil.isEmpty(uri)) {
-            return true;
-        }
-        for (int i = 0; i < uriArray.length; i++) {
-            if (uri.equals(uriArray[i])) {
+        for (int i = 0; i < this.excludeUri.size(); i++) {
+            String exc = this.excludeUri.get(i);
+            if (StringUtils.isEmpty(exc)) {
+                continue;
+            }
+            Pattern pattern = Pattern.compile(exc);
+            Matcher matcher = pattern.matcher(uri);
+            if (matcher.find()) {
                 return false;
             }
         }
@@ -100,5 +111,13 @@ public class TokenFilter extends ZuulFilter {
             ctx.getResponse().addHeader(Token.REQUEST_ATTRIBUTE_TOKEN, tokenString);
         }
         return null;
+    }
+
+    public List<String> getExcludeUri() {
+        return excludeUri;
+    }
+
+    public void setExcludeUri(List<String> excludeUri) {
+        this.excludeUri = excludeUri;
     }
 }
