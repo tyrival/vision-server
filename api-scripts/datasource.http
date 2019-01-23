@@ -1,0 +1,104 @@
+###
+POST http://127.0.0.1:9003/datasource/save_database
+Content-Type: application/json
+token: eyJ0eXBlIjoiSldUIiwiYWxnIjoiSFMyNTYifQ.eyJpZCI6IjEiLCJhY2NvdW50IjoiYWRtaW4iLCJuYW1lIjoi57O757uf566h55CG5ZGYIiwiZXhwIjoxNTQ1Mjc1NjI2LCJuYmYiOjE1NDUyNzM4MjZ9.lpogfNx5btxRQySu_pB5KkyRvvELQU7YXtlf6lZ_n14
+
+{
+  "host": "127.0.0.1",
+  "port": "5432",
+  "schema": "postgres",
+  "userName": "postgres",
+  "type": "POSTGRESQL",
+  "name": "Ja",
+  "password": "123"
+}
+
+
+###
+GET http://127.0.0.1:9003/datasource/list_by_user?userId=1
+token: eyJ0eXBlIjoiSldUIiwiYWxnIjoiSFMyNTYifQ.eyJpZCI6IjEiLCJhY2NvdW50IjoiYWRtaW4iLCJuYW1lIjoi57O757uf566h55CG5ZGYIiwiZXhwIjoxNTQ1Mjc1NjI2LCJuYmYiOjE1NDUyNzM4MjZ9.lpogfNx5btxRQySu_pB5KkyRvvELQU7YXtlf6lZ_n14
+
+###
+POST http://127.0.0.1:9003/datasource/query
+Content-Type: application/json
+token: eyJ0eXBlIjoiSldUIiwiYWxnIjoiSFMyNTYifQ.eyJpZCI6IjEiLCJhY2NvdW50IjoiYWRtaW4iLCJuYW1lIjoi57O757uf566h55CG5ZGYIiwiZXhwIjoxNTQ1Mjc1NjI2LCJuYmYiOjE1NDUyNzM4MjZ9.lpogfNx5btxRQySu_pB5KkyRvvELQU7YXtlf6lZ_n14
+
+{
+  "dsId": "7f56209f-e9d2-4bce-ad98-e37e9ad55c3c",
+  "type": "POSTGRESQL",
+  "sql": "SELECT * FROM sys_users"
+}
+
+
+###
+POST http://127.0.0.1:9003/datasource/api_proxy
+Content-Type: application/json
+token: eyJ0eXBlIjoiSldUIiwiYWxnIjoiSFMyNTYifQ.eyJpZCI6IjEiLCJhY2NvdW50IjoiYWRtaW4iLCJuYW1lIjoi57O757uf566h55CG5ZGYIiwiZXhwIjoxNTQ1Mjc1NjI2LCJuYmYiOjE1NDUyNzM4MjZ9.lpogfNx5btxRQySu_pB5KkyRvvELQU7YXtlf6lZ_n14
+
+{
+  "url": "https://www.baidu.com",
+  "method": "POST"
+}
+
+
+###
+POST http://127.0.0.1:9003/datasource/save_database
+Content-Type: application/json
+token: eyJ0eXBlIjoiSldUIiwiYWxnIjoiSFMyNTYifQ.eyJpZCI6IjEiLCJhY2NvdW50IjoiYWRtaW4iLCJuYW1lIjoi57O757uf566h55CG5ZGYIiwiZXhwIjoxNTQ1Mjc1NjI2LCJuYmYiOjE1NDUyNzM4MjZ9.lpogfNx5btxRQySu_pB5KkyRvvELQU7YXtlf6lZ_n14
+
+{
+  "host": "127.0.0.1",
+  "port": "5432",
+  "schema": "postgres",
+  "userName": "postgres",
+  "type": "POSTGRESQL",
+  "name": "Ja",
+  "password": "123"
+}
+
+
+###
+GET http://127.0.0.1:9003/datasource/list_by_user?userId=1
+token: eyJ0eXBlIjoiSldUIiwiYWxnIjoiSFMyNTYifQ.eyJpZCI6IjEiLCJhY2NvdW50IjoiYWRtaW4iLCJuYW1lIjoi57O757uf566h55CG5ZGYIiwiZXhwIjoxNTQ1Mjc1NjI2LCJuYmYiOjE1NDUyNzM4MjZ9.lpogfNx5btxRQySu_pB5KkyRvvELQU7YXtlf6lZ_n14
+
+
+###
+POST http://127.0.0.1:9003/datasource/query
+Content-Type: application/json
+token: eyJ0eXBlIjoiSldUIiwiYWxnIjoiSFMyNTYifQ.eyJpZCI6IjEiLCJhY2NvdW50IjoiYWRtaW4iLCJuYW1lIjoi57O757uf566h55CG5ZGYIiwiZXhwIjoxNTQ1Mjc1NjI2LCJuYmYiOjE1NDUyNzM4MjZ9.lpogfNx5btxRQySu_pB5KkyRvvELQU7YXtlf6lZ_n14
+
+
+{
+  "dsId": "7f56209f-e9d2-4bce-ad98-e37e9ad55c3c",
+  "type": "POSTGRESQL",
+  "sql": "SELECT * FROM sys_users"
+}
+
+###
+POST http://127.0.0.1:9003/datasource/api_proxy
+Content-Type: application/json
+token: eyJ0eXBlIjoiSldUIiwiYWxnIjoiSFMyNTYifQ.eyJpZCI6IjEiLCJhY2NvdW50IjoiYWRtaW4iLCJuYW1lIjoi57O757uf566h55CG5ZGYIiwiZXhwIjoxNTQ1Mjc1NjI2LCJuYmYiOjE1NDUyNzM4MjZ9.lpogfNx5btxRQySu_pB5KkyRvvELQU7YXtlf6lZ_n14
+
+{
+  "url": "https://www.baidu.com",
+  "method": "POST"
+}
+
+
+###
+GET http://127.0.0.1:9102/datasource/get?dsId=1
+token: eyJ0eXBlIjoiSldUIiwiYWxnIjoiSFMyNTYifQ.eyJpZCI6IjEiLCJhY2NvdW50IjoiYWRtaW4iLCJuYW1lIjoi57O757uf566h55CG5ZGYIiwiZXhwIjoxNTQ1Mjc1NjI2LCJuYmYiOjE1NDUyNzM4MjZ9.lpogfNx5btxRQySu_pB5KkyRvvELQU7YXtlf6lZ_n14
+
+###
+POST http://127.0.0.1:9102/datasource/list_schema?userId=1
+Content-Type: application/json
+token: eyJ0eXBlIjoiSldUIiwiYWxnIjoiSFMyNTYifQ.eyJpZCI6IjEiLCJhY2NvdW50IjoiYWRtaW4iLCJuYW1lIjoi57O757uf566h55CG5ZGYIiwiZXhwIjoxNTQ1Mjc1NjI2LCJuYmYiOjE1NDUyNzM4MjZ9.lpogfNx5btxRQySu_pB5KkyRvvELQU7YXtlf6lZ_n14
+
+{
+  "host": "127.0.0.1",
+  "password": "123",
+  "port": "5432",
+  "type": "POSTGRESQL",
+  "userName": "postgres"
+}
+

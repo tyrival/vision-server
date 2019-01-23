@@ -62,14 +62,14 @@
         <dependency>
             <groupId>com.tyrival</groupId>
             <artifactId>common</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>1.0</version>
         </dependency>
 
         <!-- redis -->
         <dependency>
             <groupId>com.tyrival</groupId>
             <artifactId>redis</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>1.0</version>
         </dependency>
 
         <!-- 消息总线 -->

@@ -1,0 +1,28 @@
+###
+POST http://127.0.0.1:9003/user/login
+Content-Type: application/json
+token: eyJ0eXBlIjoiSldUIiwiYWxnIjoiSFMyNTYifQ.eyJpZCI6IjEiLCJhY2NvdW50IjoiYWRtaW4iLCJuYW1lIjoi57O757uf566h55CG5ZGYIiwiZXhwIjoxNTQ1Mjc1NjI2LCJuYmYiOjE1NDUyNzM4MjZ9.lpogfNx5btxRQySu_pB5KkyRvvELQU7YXtlf6lZ_n14
+
+{
+  "account": "administrator",
+  "password": "shikon"
+}
+
+###
+POST http://127.0.0.1:9003/user/save
+Content-Type: application/json
+token: eyJ0eXBlIjoiSldUIiwiYWxnIjoiSFMyNTYifQ.eyJpZCI6IjEiLCJhY2NvdW50IjoiYWRtaW4iLCJuYW1lIjoi57O757uf566h55CG5ZGYIiwiZXhwIjoxNTQ1Mjc1NjI2LCJuYmYiOjE1NDUyNzM4MjZ9.lpogfNx5btxRQySu_pB5KkyRvvELQU7YXtlf6lZ_n14
+
+{
+  "account": "a1",
+  "password": "123",
+  "name": "\\u5f20\\u4e09",
+  "userStateEnum": "1"
+}
+
+
+###
+GET http://127.0.0.1:9003/user/list
+token: eyJ0eXBlIjoiSldUIiwiYWxnIjoiSFMyNTYifQ.eyJpZCI6IjEiLCJhY2NvdW50IjoiYWRtaW4iLCJuYW1lIjoi57O757uf566h55CG5ZGYIiwiZXhwIjoxNTQ1Mjc1NjI2LCJuYmYiOjE1NDUyNzM4MjZ9.lpogfNx5btxRQySu_pB5KkyRvvELQU7YXtlf6lZ_n14
+
+

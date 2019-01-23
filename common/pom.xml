@@ -5,7 +5,7 @@
 
     <groupId>com.tyrival</groupId>
     <artifactId>common</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0</version>
     <packaging>jar</packaging>
 
     <name>common</name>
@@ -110,12 +110,12 @@
         </dependency>
 
         <!-- Oracle -->
-        <dependency>
+        <!--<dependency>
             <groupId>com.oracle</groupId>
             <artifactId>ojdbc14</artifactId>
             <version>${oracle.version}</version>
             <scope>runtime</scope>
-        </dependency>
+        </dependency>-->
 
         <!-- token -->
         <dependency>

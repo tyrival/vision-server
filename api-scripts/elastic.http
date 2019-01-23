@@ -1,0 +1,43 @@
+###
+POST http://127.0.0.1:9201/elastic/operate?json={"id":1,"name":"tom"}&index=test&type=e1&id=1
+Content-Type: application/json
+token: eyJ0eXBlIjoiSldUIiwiYWxnIjoiSFMyNTYifQ.eyJpZCI6IjEiLCJhY2NvdW50IjoiYWRtaW4iLCJuYW1lIjoi57O757uf566h55CG5ZGYIiwiZXhwIjoxNTQ1Mjc1NjI2LCJuYmYiOjE1NDUyNzM4MjZ9.lpogfNx5btxRQySu_pB5KkyRvvELQU7YXtlf6lZ_n14
+
+
+{
+  "json": "{\"id\":1,\"name\":\"tom\"}",
+  "index": "test",
+  "type": "e1",
+  "id": "2",
+  "operate": "CREATE"
+}
+
+
+
+###
+POST http://127.0.0.1:9201/elastic/handler?json={"id":1,"name":"tom"}&index=test&type=e1&id=1
+Content-Type: application/json
+token: eyJ0eXBlIjoiSldUIiwiYWxnIjoiSFMyNTYifQ.eyJpZCI6IjEiLCJhY2NvdW50IjoiYWRtaW4iLCJuYW1lIjoi57O757uf566h55CG5ZGYIiwiZXhwIjoxNTQ1Mjc1NjI2LCJuYmYiOjE1NDUyNzM4MjZ9.lpogfNx5btxRQySu_pB5KkyRvvELQU7YXtlf6lZ_n14
+
+{
+  "index": "test",
+  "type": "e1",
+  "id": "1",
+  "operate": "GET"
+}
+
+
+
+###
+POST http://127.0.0.1:9201/elastic/search
+Content-Type: application/json
+token: eyJ0eXBlIjoiSldUIiwiYWxnIjoiSFMyNTYifQ.eyJpZCI6IjEiLCJhY2NvdW50IjoiYWRtaW4iLCJuYW1lIjoi57O757uf566h55CG5ZGYIiwiZXhwIjoxNTQ1Mjc1NjI2LCJuYmYiOjE1NDUyNzM4MjZ9.lpogfNx5btxRQySu_pB5KkyRvvELQU7YXtlf6lZ_n14
+
+{
+  "index": "test",
+  "type": "e1",
+  "text": "tom",
+  "from": "0",
+  "size": "2"
+}
+
