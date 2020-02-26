@@ -1,18 +1,20 @@
 package com.tyrival.redis.config;
 
 import com.alibaba.fastjson.support.spring.GenericFastJsonRedisSerializer;
+import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.cache.CacheManager;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.cache.annotation.CachingConfigurerSupport;
 import org.springframework.cache.annotation.EnableCaching;
-import org.springframework.cache.interceptor.KeyGenerator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.redis.cache.RedisCacheConfiguration;
-import org.springframework.data.redis.cache.RedisCacheWriter;
-import org.springframework.data.redis.connection.RedisConnectionFactory;
+import org.springframework.data.redis.connection.RedisPassword;
+import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
+import org.springframework.data.redis.connection.lettuce.LettuceClientConfiguration;
 import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
+import org.springframework.data.redis.connection.lettuce.LettucePoolingClientConfiguration;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
@@ -30,97 +32,85 @@ public class RedisConfig extends CachingConfigurerSupport {
 
     private static final Logger log = LoggerFactory.getLogger(TedisCacheManager.class);
 
-    private final RedisConnectionFactory redisConnectionFactory;
-
-    RedisConfig(RedisConnectionFactory redisConnectionFactory) {
-        this.redisConnectionFactory = redisConnectionFactory;
+    @Bean
+    @ConditionalOnBean(name = "defaultRedisConfig")
+    public LettuceConnectionFactory defaultLettuceConnectionFactory(RedisStandaloneConfiguration defaultRedisConfig,
+                                                                    GenericObjectPoolConfig defaultPoolConfig) {
+        LettuceClientConfiguration clientConfig =
+                LettucePoolingClientConfiguration.builder().commandTimeout(Duration.ofMillis(100))
+                        .poolConfig(defaultPoolConfig).build();
+        return new LettuceConnectionFactory(defaultRedisConfig, clientConfig);
     }
 
-    /**
-     * 配置 RedisTemplate，设置序列化器
-     * <pre>
-     *     在类里面配置 RestTemplate，需要配置 key 和 value 的序列化类。
-     *     key 序列化使用 StringRedisSerializer, 不配置的话，key 会出现乱码。
-     * </pre>
-     */
     @Bean
-    public RedisTemplate<String, Object> redisTemplate() {
-        RedisTemplate<String, Object> template = new RedisTemplate<>();
-        // set key serializer
+    public RedisTemplate<String, String> redisTemplate(LettuceConnectionFactory defaultLettuceConnectionFactory) {
+        RedisTemplate<String, String> redisTemplate = new RedisTemplate<>();
+
         StringRedisSerializer serializer = TedisCacheManager.STRING_SERIALIZER;
         // 设置key序列化类，否则key前面会多了一些乱码
-        template.setKeySerializer(serializer);
-        template.setHashKeySerializer(serializer);
+        redisTemplate.setKeySerializer(serializer);
+        redisTemplate.setHashKeySerializer(serializer);
 
         // fastjson serializer
         GenericFastJsonRedisSerializer fastSerializer = TedisCacheManager.FASTJSON_SERIALIZER;
-        template.setValueSerializer(fastSerializer);
-        template.setHashValueSerializer(fastSerializer);
+        redisTemplate.setValueSerializer(fastSerializer);
+        redisTemplate.setHashValueSerializer(fastSerializer);
         // 如果 KeySerializer 或者 ValueSerializer 没有配置，则对应的 KeySerializer、ValueSerializer 才使用这个 Serializer
-        template.setDefaultSerializer(fastSerializer);
+        redisTemplate.setDefaultSerializer(fastSerializer);
 
-        log.info("redis: {}", redisConnectionFactory);
-        LettuceConnectionFactory factory = (LettuceConnectionFactory) redisConnectionFactory;
-        log.info("spring.redis.database: {}", factory.getDatabase());
-        log.info("spring.redis.host: {}", factory.getHostName());
-        log.info("spring.redis.port: {}", factory.getPort());
-        log.info("spring.redis.timeout: {}", factory.getTimeout());
-        log.info("spring.redis.password: {}", factory.getPassword());
-
-        // factory
-        template.setConnectionFactory(redisConnectionFactory);
-        template.afterPropertiesSet();
-        return template;
+        redisTemplate.setConnectionFactory(defaultLettuceConnectionFactory);
+        redisTemplate.afterPropertiesSet();
+        return redisTemplate;
     }
 
-    /**
-     * 如果 @Cacheable、@CachePut、@CacheEvict 等注解没有配置 key，则使用这个自定义 key 生成器
-     * <pre>
-     *     但自定义了缓存的 key 时，难以保证 key 的唯一性，此时最好指定方法名，比如：@Cacheable(value="", key="{#root.methodName, #id}")
-     * </pre>
-     */
     @Bean
-    @Override
-    public KeyGenerator keyGenerator() {
-        return (o, method, objects) -> {
-            StringBuilder sb = new StringBuilder(32);
-            sb.append(o.getClass().getSimpleName());
-            sb.append(".");
-            sb.append(method.getName());
-            if (objects.length > 0) {
-                sb.append("#");
-            }
-            String sp = "";
-            for (Object object : objects) {
-                sb.append(sp);
-                if (object == null) {
-                    sb.append("NULL");
-                } else {
-                    sb.append(object.toString());
-                }
-                sp = ".";
-            }
-            return sb.toString();
-        };
+    @ConditionalOnBean(name = "localRedisConfig")
+    public LettuceConnectionFactory localLettuceConnectionFactory(RedisStandaloneConfiguration localRedisConfig,
+                                                                  GenericObjectPoolConfig localPoolConfig) {
+        LettuceClientConfiguration clientConfig =
+                LettucePoolingClientConfiguration.builder().commandTimeout(Duration.ofMillis(100))
+                        .poolConfig(localPoolConfig).build();
+        return new LettuceConnectionFactory(localRedisConfig, clientConfig);
     }
 
-    /**
-     * 配置 RedisCacheManager，使用 cache 注解管理 redis 缓存
-     */
-    @Bean
-    @Override
-    public CacheManager cacheManager() {
-        // 初始化一个RedisCacheWriter
-        RedisCacheWriter cacheWriter = RedisCacheWriter.nonLockingRedisCacheWriter(redisConnectionFactory);
+    @Configuration
+    public static class DefaultRedisConfig {
+        @Value("${spring.redis.host:127.0.0.1}")
+        private String host;
+        @Value("${spring.redis.port:6379}")
+        private Integer port;
+        @Value("${spring.redis.password:}")
+        private String password;
+        @Value("${spring.redis.database:0}")
+        private Integer database;
 
-        // 设置默认过期时间：30 分钟
-        RedisCacheConfiguration defaultCacheConfig = RedisCacheConfiguration.defaultCacheConfig()
-                .entryTtl(Duration.ofMinutes(30))
-                // 使用注解时的序列化、反序列化
-                .serializeKeysWith(TedisCacheManager.STRING_PAIR)
-                .serializeValuesWith(TedisCacheManager.FASTJSON_PAIR);
+        @Value("${spring.redis.lettuce.pool.max-active:8}")
+        private Integer maxActive;
+        @Value("${spring.redis.lettuce.pool.max-idle:8}")
+        private Integer maxIdle;
+        @Value("${spring.redis.lettuce.pool.max-wait:-1}")
+        private Long maxWait;
+        @Value("${spring.redis.lettuce.pool.min-idle:0}")
+        private Integer minIdle;
 
-        return new TedisCacheManager(cacheWriter, defaultCacheConfig);
+        @Bean
+        public GenericObjectPoolConfig defaultPoolConfig() {
+            GenericObjectPoolConfig config = new GenericObjectPoolConfig();
+            config.setMaxTotal(maxActive);
+            config.setMaxIdle(maxIdle);
+            config.setMinIdle(minIdle);
+            config.setMaxWaitMillis(maxWait);
+            return config;
+        }
+
+        @Bean
+        public RedisStandaloneConfiguration defaultRedisConfig() {
+            RedisStandaloneConfiguration config = new RedisStandaloneConfiguration();
+            config.setHostName(host);
+            config.setPassword(RedisPassword.of(password));
+            config.setPort(port);
+            config.setDatabase(database);
+            return config;
+        }
     }
-
 }

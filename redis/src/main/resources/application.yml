@@ -1,16 +1,16 @@
+# 在依赖Redis的模块的application中增加如下配置
 spring:
   cache:
     type: redis
   redis:
-    password:
+    host: 127.0.0.1
+    port: 6379
+    password: 123
     maxAttempts: 5
     timeout: 2000ms
-    jedis:
+    lettuce:
       pool:
         max-active: 8
-        max-wait: 5000ms
+        max-wait: 5000
         max-idle: 50
         min-idle: 0
-    cluster:
-      nodes:
-        - 127.0.0.1:6379
