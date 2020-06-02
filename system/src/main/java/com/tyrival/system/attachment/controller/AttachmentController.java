@@ -9,14 +9,12 @@ import com.tyrival.system.attachment.service.AttachmentService;
 import com.tyrival.api.base.service.BaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestPart;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
+import java.util.List;
 
 /**
  * @Description:
@@ -45,6 +43,26 @@ public class AttachmentController extends BaseController<Attachment> {
             return new Result(e);
         } catch (Exception e) {
             return new Result(ExceptionEnum.UPLOAD_FAIL);
+        }
+    }
+
+    @PostMapping(value = "/upload_proprietary", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public Result upload_proprietary(@RequestPart(value = "file") MultipartFile file) {
+        try {
+            Attachment attachment = attachmentService.uploadProprietary(file, this.getCurrentUser());
+            return new Result(attachment);
+        } catch (CommonException e) {
+            return new Result(e);
+        }
+    }
+
+    @PostMapping(value = "/list_proprietary")
+    public Result list_proprietary() {
+        try {
+            List<Attachment> list = attachmentService.listProprietary(this.getCurrentUser());
+            return new Result(list);
+        } catch (CommonException e) {
+            return new Result(e);
         }
     }
 

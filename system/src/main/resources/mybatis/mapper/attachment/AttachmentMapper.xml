@@ -56,6 +56,13 @@
         WHERE id = #{id} AND del_flag = 0
     </delete>
 
+    <select id="listProprietary" resultMap="attachmentResultMap">
+        SELECT <include refid="columns"/>
+        FROM sys_attachment
+        WHERE create_user_id = #{id} AND del_flag = 0
+        ORDER BY create_time DESC
+    </select>
+
     <select id="list" parameterType="com.tyrival.entity.base.QueryParam" resultMap="attachmentResultMap">
         SELECT
         <include refid="columns"/>

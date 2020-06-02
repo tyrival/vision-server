@@ -2,8 +2,11 @@ package com.tyrival.system.attachment.dao;
 
 import com.tyrival.entity.system.attachment.Attachment;
 import com.tyrival.api.base.dao.BaseDAO;
+import com.tyrival.entity.system.user.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 /**
  * @Description:
@@ -14,4 +17,5 @@ import org.springframework.stereotype.Component;
 @Mapper
 @Component
 public interface AttachmentDAO extends BaseDAO<Attachment> {
+    List<Attachment> listProprietary(User user);
 }
