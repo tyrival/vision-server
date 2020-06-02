@@ -36,6 +36,7 @@
             <if test="size != null">size = #{size},</if>
             <if test="absolutePath != null">absolute_path = #{absolutePath},</if>
             <if test="relativePath != null">relative_path = #{relativePath},</if>
+            <if test="createUserId != null">create_user_id = #{createUserId},</if>
             <if test="updateTime != null">update_time = #{updateTime},</if>
             <if test="updateUserId != null">update_user_id = #{updateUserId},</if>
             <if test="delFlag != null">del_flag = #{delFlag.code},</if>

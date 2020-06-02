@@ -20,4 +20,6 @@ public interface AttachmentService extends BaseService<Attachment> {
     Attachment uploadProprietary(MultipartFile file, User user);
 
     List<Attachment> listProprietary(User user);
+
+    Attachment deleteProprietary(String id);
 }

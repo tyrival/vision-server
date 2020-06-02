@@ -66,6 +66,16 @@ public class AttachmentController extends BaseController<Attachment> {
         }
     }
 
+    @GetMapping(value = "/delete_proprietary")
+    public Result delete_proprietary(@RequestParam("id") String id) {
+        try {
+            Attachment attachment = this.attachmentService.deleteProprietary(id);
+            return new Result(attachment);
+        } catch (CommonException e) {
+            return new Result(e);
+        }
+    }
+
     @RequestMapping(value = "/download")
     public HttpServletResponse download(HttpServletResponse response, @RequestParam("id") String id) {
         try {

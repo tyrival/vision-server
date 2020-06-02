@@ -87,6 +87,7 @@ public enum ExceptionEnum implements Serializable {
      * Attachment模块异常
      */
     UPLOAD_FAIL(ATTACHMENT_EXP_PREFIX + "000", "文件上传失败"),
+    FILE_NOT_EXIST(ATTACHMENT_EXP_PREFIX + "001", "文件不存在"),
 
     /**
      * Vision - Screen模块异常

@@ -121,6 +121,16 @@ public class AttachmentServiceImpl extends BaseServiceImpl<Attachment> implement
     }
 
     @Override
+    public Attachment deleteProprietary(String id) {
+        Attachment attachment = this.get(id);
+        if (attachment == null) {
+            throw new CommonException(ExceptionEnum.FILE_NOT_EXIST);
+        }
+        attachment.setCreateUserId(null);
+        return this.update(attachment);
+    }
+
+    @Override
     public int delete(String id) {
         Attachment attachment = this.attachmentDAO.get(id);
         FileUtil.delete(attachment.getAbsolutePath());
