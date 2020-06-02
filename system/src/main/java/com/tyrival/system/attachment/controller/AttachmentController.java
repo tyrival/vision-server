@@ -56,7 +56,7 @@ public class AttachmentController extends BaseController<Attachment> {
         }
     }
 
-    @PostMapping(value = "/list_proprietary")
+    @GetMapping(value = "/list_proprietary")
     public Result list_proprietary() {
         try {
             List<Attachment> list = attachmentService.listProprietary(this.getCurrentUser());
