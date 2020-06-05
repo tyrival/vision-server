@@ -36,6 +36,21 @@ public class AttachmentController extends FeignController<Attachment> {
         return attachmentService.upload(request, response, file);
     }
 
+    @RequestMapping(value = "/upload_proprietary")
+    public Result uploadProprietary(HttpServletRequest request, HttpServletResponse response, MultipartFile file) {
+        return attachmentService.uploadProprietary(request, response, file);
+    }
+
+    @RequestMapping(value = "/list_proprietary")
+    public Result listProprietary(HttpServletRequest request, HttpServletResponse response) {
+        return attachmentService.listProprietary(request, response);
+    }
+
+    @RequestMapping(value = "/delete_proprietary")
+    public Result deleteProprietary(HttpServletRequest request, HttpServletResponse response, String id) {
+        return attachmentService.deleteProprietary(request, response, id);
+    }
+
     @RequestMapping(value = "/download")
     public byte[] download(HttpServletRequest request, HttpServletResponse response, String id) {
         return attachmentService.download(request, response, id);

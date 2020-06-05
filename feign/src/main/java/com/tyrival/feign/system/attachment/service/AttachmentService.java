@@ -50,9 +50,23 @@ public interface AttachmentService extends FeignService<Attachment> {
                   @RequestParam(value = "response") HttpServletResponse response,
                   @RequestPart(value = "file") MultipartFile file);
 
+    @RequestMapping(value = "/upload_proprietary", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    Result uploadProprietary(@RequestParam(value = "request") HttpServletRequest request,
+                             @RequestParam(value = "response") HttpServletResponse response,
+                             @RequestPart(value = "file") MultipartFile file);
+
+    @RequestMapping(value = "/list_proprietary", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    Result listProprietary(@RequestParam(value = "request") HttpServletRequest request,
+                           @RequestParam(value = "response") HttpServletResponse response);
+
+    @RequestMapping(value = "/delete_proprietary")
+    Result deleteProprietary(@RequestParam(value = "request") HttpServletRequest request,
+                             @RequestParam(value = "response") HttpServletResponse response,
+                             @RequestParam(value = "id") String id);
+
     @RequestMapping(value = "/download")
     byte[] download(@RequestParam(value = "request") HttpServletRequest request,
-                                 @RequestParam(value = "response") HttpServletResponse response,
-                                 @RequestParam(value = "id") String id);
+                    @RequestParam(value = "response") HttpServletResponse response,
+                    @RequestParam(value = "id") String id);
 
 }

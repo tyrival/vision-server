@@ -27,6 +27,21 @@ public class AttachmentServiceHystrix extends FeignServiceHystrix<Attachment> im
     }
 
     @Override
+    public Result uploadProprietary(HttpServletRequest request, HttpServletResponse response, MultipartFile file) {
+        return new Result(ExceptionEnum.HYSTRIX);
+    }
+
+    @Override
+    public Result listProprietary(HttpServletRequest request, HttpServletResponse response) {
+        return new Result(ExceptionEnum.HYSTRIX);
+    }
+
+    @Override
+    public Result deleteProprietary(HttpServletRequest request, HttpServletResponse response, String id) {
+        return new Result(ExceptionEnum.HYSTRIX);
+    }
+
+    @Override
     public byte[] download(HttpServletRequest request, HttpServletResponse response, String id) {
         return null;
     }
