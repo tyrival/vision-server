@@ -1,5 +1,6 @@
 package com.tyrival.system.user.controller;
 
+import com.tyrival.config.ControllerConfig;
 import com.tyrival.entity.base.Result;
 import com.tyrival.entity.base.Token;
 import com.tyrival.entity.system.user.User;
@@ -22,7 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @Version: V1.0
  */
 @RestController
-@RequestMapping("/user")
+@RequestMapping(ControllerConfig.USER)
 public class UserController extends BaseController<User> {
 
     @Autowired

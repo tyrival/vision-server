@@ -1,5 +1,7 @@
 package com.tyrival.feign.system.user.service;
 
+import com.tyrival.config.ControllerConfig;
+import com.tyrival.config.ServiceConfig;
 import com.tyrival.entity.base.Result;
 import com.tyrival.entity.system.user.User;
 import com.tyrival.api.feign.service.FeignService;
@@ -15,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  * @Date: 2018/10/24
  * @Version: V1.0
  */
-@FeignClient(value = "server-system", path = "/user", fallback = UserServiceHystrix.class)
+@FeignClient(value = ServiceConfig.SYSTEM, path = ControllerConfig.USER, fallback = UserServiceHystrix.class)
 public interface UserService extends FeignService<User> {
 
     @RequestMapping(value = "/login")

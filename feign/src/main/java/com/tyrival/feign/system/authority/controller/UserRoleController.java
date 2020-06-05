@@ -1,5 +1,6 @@
 package com.tyrival.feign.system.authority.controller;
 
+import com.tyrival.config.ControllerConfig;
 import com.tyrival.entity.system.authority.UserRole;
 import com.tyrival.api.feign.controller.FeignController;
 import com.tyrival.api.feign.service.FeignService;
@@ -9,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/user_role")
+@RequestMapping(ControllerConfig.USER_ROLE)
 public class UserRoleController extends FeignController<UserRole> {
 
     @Autowired

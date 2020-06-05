@@ -1,5 +1,6 @@
 package com.tyrival.vision.screen.controller;
 
+import com.tyrival.config.ControllerConfig;
 import com.tyrival.entity.base.Result;
 import com.tyrival.entity.vision.screen.Screen;
 import com.tyrival.api.base.service.BaseService;
@@ -17,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/screen")
+@RequestMapping(ControllerConfig.SCREEN)
 public class ScreenController extends BaseController<Screen> {
 
     @Autowired

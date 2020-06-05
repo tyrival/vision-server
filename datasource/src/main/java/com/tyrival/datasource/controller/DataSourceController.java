@@ -1,6 +1,7 @@
 package com.tyrival.datasource.controller;
 
 import com.google.gson.Gson;
+import com.tyrival.config.ControllerConfig;
 import com.tyrival.datasource.service.DataSourceService;
 import com.tyrival.entity.base.Result;
 import com.tyrival.entity.base.Token;
@@ -33,7 +34,7 @@ import java.util.Map;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/datasource")
+@RequestMapping(ControllerConfig.DATASOURCE)
 public class DataSourceController {
 
     @Autowired

@@ -1,5 +1,7 @@
 package com.tyrival.feign.datasource.service;
 
+import com.tyrival.config.ControllerConfig;
+import com.tyrival.config.ServiceConfig;
 import com.tyrival.entity.base.Result;
 import com.tyrival.entity.datasource.DataSourceQuery;
 import com.tyrival.entity.datasource.api.ApiSource;
@@ -11,7 +13,7 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-@FeignClient(value = "server-datasource", path = "/datasource", fallback = DataSourceServiceHystrix.class)
+@FeignClient(value = ServiceConfig.DATASOURCE, path = ControllerConfig.DATASOURCE, fallback = DataSourceServiceHystrix.class)
 public interface DataSourceService {
 
     @RequestMapping(value = "/save_database")

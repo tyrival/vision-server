@@ -1,5 +1,6 @@
 package com.tyrival.feign.system.attachment.controller;
 
+import com.tyrival.config.ControllerConfig;
 import com.tyrival.entity.base.Result;
 import com.tyrival.entity.system.attachment.Attachment;
 import com.tyrival.api.feign.controller.FeignController;
@@ -20,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
  * @Version: V1.0
  */
 @RestController
-@RequestMapping("/attachment")
+@RequestMapping(ControllerConfig.ATTACHMENT)
 public class AttachmentController extends FeignController<Attachment> {
 
     @Autowired

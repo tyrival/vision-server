@@ -1,5 +1,7 @@
 package com.tyrival.feign.system.attachment.service;
 
+import com.tyrival.config.ControllerConfig;
+import com.tyrival.config.ServiceConfig;
 import com.tyrival.entity.base.Result;
 import com.tyrival.entity.system.attachment.Attachment;
 import com.tyrival.api.feign.service.FeignService;
@@ -28,8 +30,8 @@ import javax.servlet.http.HttpServletResponse;
  * @Date: 2018/10/24
  * @Version: V1.0
  */
-@FeignClient(value = "server-system",
-        path = "/attachment",
+@FeignClient(value = ServiceConfig.SYSTEM,
+        path = ControllerConfig.ATTACHMENT,
         configuration = AttachmentService.MultipartSupportConfig.class,
         fallback = AttachmentServiceHystrix.class)
 public interface AttachmentService extends FeignService<Attachment> {

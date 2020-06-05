@@ -4,7 +4,7 @@ create table vi_screen
   name    varchar(500),
   cover   varchar(4000),
   base    text,
-  sequence    varchar(4000),
+  sequence    text,
   components  text,
   state   integer      not null,
   create_time     date,

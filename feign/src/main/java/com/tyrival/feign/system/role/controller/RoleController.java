@@ -1,5 +1,6 @@
 package com.tyrival.feign.system.role.controller;
 
+import com.tyrival.config.ControllerConfig;
 import com.tyrival.entity.system.role.Role;
 import com.tyrival.api.feign.controller.FeignController;
 import com.tyrival.api.feign.service.FeignService;
@@ -9,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/role")
+@RequestMapping(ControllerConfig.ROLE)
 public class RoleController extends FeignController<Role> {
 
     @Autowired

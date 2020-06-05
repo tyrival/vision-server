@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tyrival.vision.screen.dao.IntegrationDAO">
+
+    <resultMap id="integrationResultMap" type="com.tyrival.entity.vision.screen.Integration">
+        <result property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="description" column="description"/>
+        <result property="cover" column="cover"/>
+        <result property="base" column="base"/>
+        <result property="layout" column="layout"/>
+        <result property="navigation" column="navigation"/>
+        <result property="state" column="state" typeHandler="com.tyrival.typehandler.EnumTypeHandler"/>
+        <result property="createTime" column="create_time"/>
+        <result property="createUserId" column="create_user_id"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="updateUserId" column="update_user_id"/>
+        <result property="delFlag" column="del_flag" typeHandler="com.tyrival.typehandler.EnumTypeHandler"/>
+        <result property="type" column="type"/>
+    </resultMap>
+
+    <sql id="columns">
+        id, name, cover, base, description, layout, navigation, state, create_time, create_user_id, update_time, update_user_id, del_flag,type
+    </sql>
+
+    <insert id="insert">
+        INSERT INTO vi_integration (<include refid="columns"/>)
+        VALUES (#{id}, #{name}, #{cover}, #{base}, #{description}, #{layout}, #{navigation},  #{state.code},  #{createTime}, #{createUserId}, #{updateTime}, #{updateUserId}, #{delFlag.code}, #{type})
+    </insert>
+
+    <update id="update">
+        UPDATE vi_integration
+        <set>
+            <if test="name != null">name = #{name},</if>
+            <if test="cover != null">cover = #{cover},</if>
+            <if test="base != null">base = #{base},</if>
+            <if test="description != null">description = #{description},</if>
+            <if test="layout != null">layout = #{layout},</if>
+            <if test="navigation != null">navigation = #{navigation},</if>
+            <if test="state != null">state = #{state.code},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="updateUserId != null">update_user_id = #{updateUserId},</if>
+            <if test="delFlag != null">del_flag = #{delFlag.code},</if>
+            <if test="type != null">type = #{type},</if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="delete">
+        DELETE
+        FROM vi_integration
+        WHERE id = #{id}
+    </delete>
+
+    <select id="get" resultMap="integrationResultMap">
+        SELECT
+        <include refid="columns"/>
+        FROM vi_integration
+        WHERE id = #{id} AND del_flag = 0
+    </select>
+
+    <select id="listByUser" resultMap="integrationResultMap">
+        SELECT
+        <include refid="columns"/>
+        FROM vi_integration
+        WHERE create_user_id = #{createUserId}
+        AND del_flag = 0
+        <if test="type != null">AND type = #{type}</if>
+    </select>
+
+    <select id="list" parameterType="com.tyrival.entity.base.QueryParam" resultMap="integrationResultMap">
+        SELECT
+        <include refid="columns"/>
+        FROM vi_integration
+        <where>
+            del_flag = 0
+            <if test="queryParam != null and queryParam.filters != null">
+                <foreach item="filter" collection="queryParam.filters">
+                    ${filter.relation} ${filter.property} ${filter.symbol} #{filter.value}
+                </foreach>
+            </if>
+        </where>
+        <if test="queryParam.orders != null">
+            ORDER BY
+            <foreach item="order" collection="queryParam.orders" separator=",">
+                ${order.property} ${order.type}
+            </foreach>
+        </if>
+    </select>
+
+</mapper>

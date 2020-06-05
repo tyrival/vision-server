@@ -1,5 +1,6 @@
 package com.tyrival.feign.datasource.controller;
 
+import com.tyrival.config.ControllerConfig;
 import com.tyrival.entity.base.Result;
 import com.tyrival.entity.datasource.DataSource;
 import com.tyrival.entity.datasource.DataSourceQuery;
@@ -14,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/datasource")
+@RequestMapping(ControllerConfig.DATASOURCE)
 public class DataSourceController {
 
     @Autowired

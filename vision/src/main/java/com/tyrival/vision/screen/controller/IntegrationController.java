@@ -2,6 +2,7 @@ package com.tyrival.vision.screen.controller;
 
 import com.tyrival.api.base.controller.BaseController;
 import com.tyrival.api.base.service.BaseService;
+import com.tyrival.config.ControllerConfig;
 import com.tyrival.entity.base.Result;
 import com.tyrival.entity.system.user.User;
 import com.tyrival.entity.vision.screen.Integration;
@@ -17,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/integaration")
+@RequestMapping(ControllerConfig.INTEGRATION)
 public class IntegrationController extends BaseController<Integration> {
 
     @Autowired

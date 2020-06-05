@@ -1,5 +1,6 @@
 package com.tyrival.feign.vision.screen.controller;
 
+import com.tyrival.config.ControllerConfig;
 import com.tyrival.entity.base.Result;
 import com.tyrival.entity.vision.screen.Screen;
 import com.tyrival.api.feign.controller.FeignController;
@@ -11,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/screen")
+@RequestMapping(ControllerConfig.SCREEN)
 public class ScreenController extends FeignController<Screen> {
 
     @Autowired
