@@ -19,6 +19,7 @@ public class ControllerConfig {
     public final static String ROLE = "/role";
 
     public final static String SCREEN = "/screen";
+    public final static String TEMPLATE = "/template";
     public final static String INTEGRATION = "/integration";
     public final static String DYNAMIC_COMPONENT = "/dynamic_component";
 }
