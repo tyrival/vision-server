@@ -2,7 +2,6 @@ package com.tyrival.entity.vision.screen;
 
 import com.google.gson.Gson;
 import com.tyrival.entity.base.Base;
-import com.tyrival.enums.vision.screen.DynamicComponentTypeEnum;
 
 public class DynamicComponent extends Base {
 
@@ -19,7 +18,7 @@ public class DynamicComponent extends Base {
     /**
      * 动态组件类型
      */
-    private DynamicComponentTypeEnum name;
+    private String name;
 
     /**
      * 配置
@@ -39,11 +38,11 @@ public class DynamicComponent extends Base {
         this.text = text;
     }
 
-    public DynamicComponentTypeEnum getName() {
+    public String getName() {
         return name;
     }
 
-    public void setName(DynamicComponentTypeEnum name) {
+    public void setName(String name) {
         this.name = name;
     }
 

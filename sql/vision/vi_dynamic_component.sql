@@ -3,7 +3,7 @@ create table vi_dynamic_component
   id            varchar(36) not null  constraint vi_dynamic_component_pkey  primary key,
   text          varchar(500),
   category      varchar(100),
-  name          integer     not null,
+  name          varchar(100),
   image         varchar(500),
   config        text,
   create_time     date,
