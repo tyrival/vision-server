@@ -3,9 +3,9 @@ create table sys_user_role
   id        varchar(36) not null  constraint sys_user_role_pkey  primary key,
   user_id   varchar(36),
   role_id   varchar(36),
-  create_time     date,
+  create_time     timestamp,
   create_user_id  varchar(50),
-  update_time     date,
+  update_time     timestamp,
   update_user_id  varchar(50),
   del_flag        integer default 0
 );

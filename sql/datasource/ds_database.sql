@@ -8,9 +8,9 @@ create table ds_database
   user_name  varchar(100),
   password  varchar(255),
   type  integer,
-  create_time     date,
+  create_time     timestamp,
   create_user_id  varchar(50),
-  update_time     date,
+  update_time     timestamp,
   update_user_id  varchar(50),
   del_flag        integer default 0
 );

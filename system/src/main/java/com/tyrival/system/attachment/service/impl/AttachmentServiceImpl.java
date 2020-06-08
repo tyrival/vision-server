@@ -11,6 +11,7 @@ import com.tyrival.api.base.dao.BaseDAO;
 import com.tyrival.api.base.service.impl.BaseServiceImpl;
 import com.tyrival.utils.FileUtil;
 import com.tyrival.utils.PathUtil;
+import io.netty.util.internal.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
@@ -126,7 +127,7 @@ public class AttachmentServiceImpl extends BaseServiceImpl<Attachment> implement
         if (attachment == null) {
             throw new CommonException(ExceptionEnum.FILE_NOT_EXIST);
         }
-        attachment.setCreateUserId(null);
+        attachment.setCreateUserId(StringUtil.EMPTY_STRING);
         return this.update(attachment);
     }
 

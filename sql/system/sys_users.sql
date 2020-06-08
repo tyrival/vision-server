@@ -7,9 +7,9 @@ create table sys_users
   user_state integer      not null,
   tel        varchar(50),
   email      varchar(255),
-  create_time     date,
+  create_time     timestamp,
   create_user_id  varchar(50),
-  update_time     date,
+  update_time     timestamp,
   update_user_id  varchar(50),
   del_flag        integer default 0
 );

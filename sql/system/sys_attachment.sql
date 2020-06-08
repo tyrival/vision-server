@@ -7,9 +7,9 @@ create table sys_attachment
   size            integer      not null,
   absolute_path   varchar(2000)  not null,
   relative_path   varchar(2000) not null,
-  create_time     date,
+  create_time     timestamp,
   create_user_id  varchar(50),
-  update_time     date,
+  update_time     timestamp,
   update_user_id  varchar(50),
   del_flag        integer default 0
 );

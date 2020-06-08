@@ -8,9 +8,9 @@ create table vi_integration
   base    text,
   navigation    text,
   state   integer      not null,
-  create_time     date,
+  create_time     timestamp,
   create_user_id  varchar(50),
-  update_time     date,
+  update_time     timestamp,
   update_user_id  varchar(50),
   del_flag        integer default 0
 );

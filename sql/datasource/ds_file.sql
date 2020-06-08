@@ -4,9 +4,9 @@ create table ds_file
   name  varchar(100),
   attachment_id  varchar(36),
   type  integer,
-  create_time     date,
+  create_time     timestamp,
   create_user_id  varchar(50),
-  update_time     date,
+  update_time     timestamp,
   update_user_id  varchar(50),
   del_flag        integer default 0
 );

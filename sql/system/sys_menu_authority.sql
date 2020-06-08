@@ -3,9 +3,9 @@ create table sys_menu_authority
   id          varchar(36) not null  constraint sys_menu_authority_pkey  primary key,
   owner_id    varchar(36),
   menu_id     varchar(36),
-  create_time     date,
+  create_time     timestamp,
   create_user_id  varchar(50),
-  update_time     date,
+  update_time     timestamp,
   update_user_id  varchar(50),
   del_flag        integer default 0
 );

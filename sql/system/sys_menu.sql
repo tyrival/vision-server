@@ -7,9 +7,9 @@ create table sys_menu
   url        varchar(2000),
   hash       varchar(100),
   sort       integer,
-  create_time     date,
+  create_time     timestamp,
   create_user_id  varchar(50),
-  update_time     date,
+  update_time     timestamp,
   update_user_id  varchar(50),
   del_flag        integer default 0
 );

@@ -6,9 +6,9 @@ create table vi_dynamic_component
   name          varchar(100),
   image         varchar(500),
   config        text,
-  create_time     date,
+  create_time     timestamp,
   create_user_id  varchar(50),
-  update_time     date,
+  update_time     timestamp,
   update_user_id  varchar(50),
   del_flag        integer default 0
 );
