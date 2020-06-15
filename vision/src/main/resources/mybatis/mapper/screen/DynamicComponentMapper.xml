@@ -7,7 +7,7 @@
         <result property="id" column="id"/>
         <result property="text" column="text"/>
         <result property="category" column="category"/>
-        <result property="name" column="name" typeHandler="com.tyrival.typehandler.EnumTypeHandler"/>
+        <result property="name" column="name"/>
         <result property="image" column="image"/>
         <result property="config" column="config"/>
         <result property="createTime" column="create_time"/>
