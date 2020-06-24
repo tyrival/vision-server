@@ -2,7 +2,7 @@ create table vi_screen
 (
   id              varchar(36) not null  constraint vi_screen_pkey  primary key,
   name    varchar(500),
-  cover   varchar(4000),
+  cover   text,
   base    text,
   sequence    text,
   components  text,
