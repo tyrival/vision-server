@@ -111,6 +111,36 @@ public class Token {
     }
 
     /**
+     * 创建Token
+     *
+     * @return
+     */
+    public static String generate(User user, Long duration) {
+        if (duration == null || duration == 0) {
+            duration = DURATION_MINUTE;
+        }
+        SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
+        long nowMillis = System.currentTimeMillis();
+        Date now = new Date(nowMillis);
+        // 生成签名密钥
+        byte[] apiKeySecretBytes = DatatypeConverter.parseBase64Binary(SECRET_KEY);
+        Key signingKey = new SecretKeySpec(apiKeySecretBytes, signatureAlgorithm.getJcaName());
+        // 添加构成JWT的参数
+        JwtBuilder builder = Jwts.builder()
+                .setHeaderParam("type", "JWT")
+                .claim("id", user.getId())
+                .claim("account", user.getAccount())
+                .claim("name", user.getName())
+                .signWith(signatureAlgorithm, signingKey);
+        // 添加Token过期时间
+        long tokenDurationMilli = duration * 60 * 1000;
+        Date expireDate = new Date(nowMillis + tokenDurationMilli);
+        builder.setExpiration(expireDate).setNotBefore(now);
+        // 生成TOKEN
+        return builder.compact();
+    }
+
+    /**
      * 生成持久化Token，用户修改密码后失效
      *
      * @return

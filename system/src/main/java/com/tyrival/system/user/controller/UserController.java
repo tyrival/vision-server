@@ -12,9 +12,7 @@ import com.tyrival.api.base.controller.BaseController;
 import com.tyrival.utils.EncryptUtil;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @Description:
@@ -71,6 +69,39 @@ public class UserController extends BaseController<User> {
                 return new Result();
             }
             return new Result(ExceptionEnum.UNKNOW_ERROR);
+        } catch (CommonException e) {
+            return new Result(e);
+        }
+    }
+
+    @RequestMapping("/current")
+    public Result current() {
+        return new Result<>(this.getCurrentUser());
+    }
+
+    @GetMapping("/token/temp")
+    public Result temporaryToken(@RequestParam String id, Long expireTime) {
+        try {
+            User user = this.userService.get(id);
+            if (user == null) {
+                return new Result(ExceptionEnum.USER_NULL);
+            }
+            String token = Token.generate(user, expireTime);
+            return new Result(token);
+        } catch (CommonException e) {
+            return new Result(e);
+        }
+    }
+
+    @GetMapping("/token/persist")
+    public Result persistToken(@RequestParam String id) {
+        try {
+            User user = this.userService.get(id);
+            if (user == null) {
+                return new Result(ExceptionEnum.USER_NULL);
+            }
+            String token = Token.persistent(user);
+            return new Result(token);
         } catch (CommonException e) {
             return new Result(e);
         }
