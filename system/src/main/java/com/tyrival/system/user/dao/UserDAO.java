@@ -16,4 +16,6 @@ import org.springframework.stereotype.Component;
 public interface UserDAO extends BaseDAO<User> {
 
     User getByAccount(String account);
+
+    User getByCode(Integer code);
 }

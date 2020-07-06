@@ -11,6 +11,7 @@
         <result property="userStateEnum" column="user_state" typeHandler="com.tyrival.typehandler.EnumTypeHandler"/>
         <result property="tel" column="tel"/>
         <result property="email" column="email"/>
+        <result property="code" column="code"/>
         <result property="createTime" column="create_time"/>
         <result property="createUserId" column="create_user_id"/>
         <result property="updateTime" column="update_time"/>
@@ -19,7 +20,7 @@
     </resultMap>
 
     <sql id="columns">
-        id, account, password, name, user_state, tel, email, create_time, create_user_id, update_time, update_user_id, del_flag
+        id, account, password, name, user_state, tel, email, code, create_time, create_user_id, update_time, update_user_id, del_flag
     </sql>
 
     <insert id="insert">
@@ -37,6 +38,7 @@
             <if test="userStateEnum != null">user_state = #{userStateEnum.code},</if>
             <if test="tel != null">tel = #{tel},</if>
             <if test="email != null">email = #{email},</if>
+            <if test="code != null">code = #{code},</if>
             <if test="updateTime != null">update_time = #{updateTime},</if>
             <if test="updateUserId != null">update_user_id = #{updateUserId},</if>
             <if test="delFlag != null">del_flag = #{delFlag.code},</if>
@@ -56,6 +58,13 @@
         <include refid="columns"/>
         FROM sys_users
         WHERE account = #{account} AND del_flag = 0
+    </select>
+
+    <select id="getByCode" resultMap="userResultMap">
+        SELECT
+        <include refid="columns"/>
+        FROM sys_users
+        WHERE code = #{code} AND del_flag = 0
     </select>
 
     <select id="list" parameterType="com.tyrival.entity.base.QueryParam" resultMap="userResultMap">

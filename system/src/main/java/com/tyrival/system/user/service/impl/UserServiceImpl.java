@@ -61,4 +61,9 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
         return this.userDAO.getByAccount(account);
     }
 
+    @Override
+    public User getByCode(Integer code) {
+        return this.userDAO.getByCode(code);
+    }
+
 }

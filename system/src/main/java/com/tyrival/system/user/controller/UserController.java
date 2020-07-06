@@ -79,6 +79,19 @@ public class UserController extends BaseController<User> {
         return new Result<>(this.getCurrentUser());
     }
 
+    @GetMapping("/get_by_code")
+    public Result getByCode(@RequestParam Integer code) {
+        try {
+            User user = this.userService.getByCode(code);
+            if (user == null) {
+                return new Result(ExceptionEnum.USER_NULL);
+            }
+            return new Result(user);
+        } catch (CommonException e) {
+            return new Result(e);
+        }
+    }
+
     @GetMapping("/token/temp")
     public Result temporaryToken(@RequestParam String id, Long expireTime) {
         try {

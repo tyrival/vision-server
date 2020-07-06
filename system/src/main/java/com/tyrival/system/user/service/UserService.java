@@ -14,4 +14,6 @@ public interface UserService extends BaseService<User> {
     boolean checkPassword(User user);
 
     User getByAccount(String account);
+
+    User getByCode(Integer code);
 }

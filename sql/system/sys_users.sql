@@ -7,6 +7,7 @@ create table sys_users
   user_state integer      not null,
   tel        varchar(50),
   email      varchar(255),
+  code       SERIAL,
   create_time     timestamp,
   create_user_id  varchar(50),
   update_time     timestamp,
